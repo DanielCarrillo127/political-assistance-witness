@@ -104,6 +104,7 @@ const Login = () => {
                 <Grid.Column style={{ maxWidth: 450 }}>
                     <Header as='h2' textAlign='center'>
                         {/* <Image src='/logo.png' /> */} Ingresa a tu cuenta
+                        {/* <h1 className="headerTitle" >hola</h1> */}
                     </Header>
                     <Form size='large'>
                         <Segment stacked>
