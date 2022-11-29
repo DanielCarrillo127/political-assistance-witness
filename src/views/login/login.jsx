@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Button, Form, Grid, Header, Message, Segment, } from 'semantic-ui-react';
-import { login } from "../../api/request";
+import { loginApi } from "../../api/request";
 import "./login.css"
 
 
@@ -37,7 +37,7 @@ const Login = () => {
             setIsloading(false)
         } else {
             if (4 < username.length && username.length <= 10) {
-                const req = await login(username, password);
+                const req = await loginApi(username, password);
                 if (req.status === 200) {
                     //save user in context and set the token in LS
                     //saveUser(req.data.accesToken, req.data.info)

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Button, Form, Grid, Header, Segment, Dropdown, Checkbox } from 'semantic-ui-react';
 import { optionsEconomicSector } from '../../utils/constant';
 import { toast } from "react-toastify";
-import { register } from '../../api/request';
+import { registerApi } from '../../api/request';
 
 
 const RegisterForm = () => {
@@ -33,7 +33,7 @@ const RegisterForm = () => {
     const handleChangeVotingBooth = (e) => { setVotingBooth(e.target.value) };
     const handleChangeTable = (e) => { setTable(e.target.value) };
     const handleChangeLeaderid = (e) => { setLeaderid(e.target.value) };
-    const handleChangeSection = (e, { value }) => { setProductiveSection(toString(value)) };
+    const handleChangeSection = (e, { value }) => { setProductiveSection(value) };
 
     const options = [
         { key: 1, text: 'Hombre', value: '1' },
@@ -65,62 +65,51 @@ const RegisterForm = () => {
                     sex: sex,
                     address: address,
                     age: age,
-                    votingBooth: votingBooth,
-                    table: table,
+                    votingBooth: votingBooth ? votingBooth : null,
+                    table: table ? table : null,
                     leaderid: leaderid,
-                    productiveSection: productiveSection,
+                    productiveSection: productiveSection ? productiveSection : "No identifica",
                 }
-                console.log(newUser)
+                const req = await registerApi(newUser);
+                if (req.status === 201) {
+                    toast.success(`Usuario Registrado Correctamente`, {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: false,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                    setIsloading(false)
+                } else {
+                    if (req.response.status === 208) {
+                        toast.warn(`El usuario ya se encuentra registrado`, {
+                            position: "top-right",
+                            autoClose: 3000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: false,
+                            draggable: true,
+                            progress: undefined,
+                        });
+                    }
+                    setIsloading(false)
+                    
+                }
 
-                // const req = await register(newUser);
-                // if (req.status === 200) {
-                //     toast.success(`Bienvenido,`, {
-                //         position: "top-right",
-                //         autoClose: 3000,
-                //         hideProgressBar: false,
-                //         closeOnClick: true,
-                //         pauseOnHover: false,
-                //         draggable: true,
-                //         progress: undefined,
-                //     });
-                //     setIsloading(false)
-                // } else {
-                //     if (req.response.status === 403) {
-                //         toast.warn(`No Tienes acceso al portal`, {
-                //             position: "top-right",
-                //             autoClose: 3000,
-                //             hideProgressBar: false,
-                //             closeOnClick: true,
-                //             pauseOnHover: false,
-                //             draggable: true,
-                //             progress: undefined,
-                //         });
-
-                //     } else if (req.response.status === 404) {
-                //         toast.warn(`${req.response.data.message}`, {
-                //             position: "top-right",
-                //             autoClose: 3000,
-                //             hideProgressBar: false,
-                //             closeOnClick: true,
-                //             pauseOnHover: false,
-                //             draggable: true,
-                //             progress: undefined,
-                //         });
-                //     }
-                //     setIsloading(false)
-                //     //clear inputs
-                setName("")
-                setSurnames("")
-                setCedula("")
-                setPhoneNumber("")
-                setSex("")
-                setAge("")
-                setAddress("")
-                setVotingBooth("")
-                setTable("")
-                setLeaderid("")
-                setProductiveSection("")
-                //}
+                    //clear inputs
+                    setName("")
+                    setSurnames("")
+                    setCedula("")
+                    setPhoneNumber("")
+                    setSex("")
+                    setAge("")
+                    setAddress("")
+                    setVotingBooth("")
+                    setTable("")
+                    setLeaderid("")
+                    setProductiveSection("")
             } else {
                 toast.warn(`Ingrese una Cedula Valida`, {
                     position: "top-right",
@@ -134,10 +123,8 @@ const RegisterForm = () => {
                 setIsloading(false)
             }
 
-
-        }
-
-    };
+        };
+    }
 
     return (
         <>
@@ -198,5 +185,7 @@ const RegisterForm = () => {
         </>
     )
 }
+
+
 
 export default RegisterForm

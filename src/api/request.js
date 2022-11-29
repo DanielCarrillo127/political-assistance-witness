@@ -1,7 +1,7 @@
 import axios from "axios";
 // import { AxiosWithAuth } from "../utils/axiosAuth";
 
-export const login = async (cedula, password) => {
+export const loginApi = async (cedula, password) => {
   const data = {
     cedula,
     password
@@ -17,15 +17,13 @@ export const login = async (cedula, password) => {
   }
 };
 
-export const register = async (cedula, password) => {
-  const data = {
-    cedula,
-    password
-  };
+export const registerApi = async (user) => {
+  // const data = {
+  // };
   try {
     const req = await axios.post(
-      `${process.env.REACT_APP_API_URL}/loginUser`,
-      data
+      `${process.env.REACT_APP_API_URL}/registerVoter`,
+      user
     );
     return req;
   } catch (error) {
