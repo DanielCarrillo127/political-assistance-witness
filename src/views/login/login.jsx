@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useState, useContext,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Button, Form, Grid, Header, Message, Segment, } from 'semantic-ui-react';
 import { loginApi } from "../../api/request";
+import { DataContext } from '../../context/userContext'
 import "./login.css"
 
 
 
 const Login = () => {
+
+
     const navigate = useNavigate();
+    const { saveUser,logOutUser } = useContext(DataContext);
 
     const [isloading, setIsloading] = useState(false);
     const [username, setUsername] = useState("");
@@ -19,6 +23,9 @@ const Login = () => {
     const handleChangeId = (e) => { setUsername(e.target.value); setIsErrorId(false) };
     const handleChangePass = (e) => { setPassword(e.target.value); setIsErrorpass(false) };
 
+    useEffect(() => {
+        logOutUser()
+    }, [])
 
     const handleSubmit = async () => {
         setIsloading(true)
@@ -39,8 +46,7 @@ const Login = () => {
             if (4 < username.length && username.length <= 10) {
                 const req = await loginApi(username, password);
                 if (req.status === 200) {
-                    //save user in context and set the token in LS
-                    //saveUser(req.data.accesToken, req.data.info)
+                    saveUser(req.data.accesToken, req.data.info)
                     toast.success(`Bienvenido,`, {
                         position: "top-right",
                         autoClose: 3000,

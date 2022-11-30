@@ -18,8 +18,6 @@ export const loginApi = async (cedula, password) => {
 };
 
 export const registerApi = async (user) => {
-  // const data = {
-  // };
   try {
     const req = await axios.post(
       `${process.env.REACT_APP_API_URL}/registerVoter`,
