@@ -1,10 +1,10 @@
-import { useState, useContext,useEffect } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Button, Form, Grid, Header, Message, Segment, } from 'semantic-ui-react';
 import { loginApi } from "../../api/request";
 import { DataContext } from '../../context/userContext'
 import "./login.css"
+import { HiOutlineIdentification, HiOutlineLockOpen, HiOutlineChevronRight } from "react-icons/hi";
 
 
 
@@ -12,9 +12,8 @@ const Login = () => {
 
 
     const navigate = useNavigate();
-    const { saveUser,logOutUser } = useContext(DataContext);
+    const { saveUser, logOutUser } = useContext(DataContext);
 
-    const [isloading, setIsloading] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [isErrorId, setIsErrorId] = useState(false);
@@ -28,7 +27,7 @@ const Login = () => {
     }, [])
 
     const handleSubmit = async () => {
-        setIsloading(true)
+
         if (username === "" || password === "") {
             toast.warn(`Debes ingresar todos los campos para ingresar a la plataforma`, {
                 position: "top-right",
@@ -41,7 +40,7 @@ const Login = () => {
             });
             if (username === "") { setIsErrorId(true) }
             if (password === "") { setIsErrorpass(true) }
-            setIsloading(false)
+
         } else {
             if (4 < username.length && username.length <= 10) {
                 const req = await loginApi(username, password);
@@ -56,7 +55,7 @@ const Login = () => {
                         draggable: true,
                         progress: undefined,
                     });
-                    setIsloading(false)
+
                     navigate("/userDashboard");
                 } else {
                     if (req.response.status === 403) {
@@ -81,7 +80,7 @@ const Login = () => {
                             progress: undefined,
                         });
                     }
-                    setIsloading(false)
+
                     //clear inputs
                     setUsername("")
                     setPassword("")
@@ -96,7 +95,7 @@ const Login = () => {
                     draggable: true,
                     progress: undefined,
                 });
-                setIsloading(false)
+
             }
 
 
@@ -106,41 +105,36 @@ const Login = () => {
 
     return (
         <>
-            <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-                <Grid.Column style={{ maxWidth: 450 }}>
-                    <Header as='h2' textAlign='center'>
-                        {/* <Image src='/logo.png' /> */} Ingresa a tu cuenta
-                        {/* <h1 className="headerTitle" >hola</h1> */}
-                    </Header>
-                    <Form size='large'>
-                        <Segment stacked>
-                            <Form.Input fluid icon='user' iconPosition='left' value={username} placeholder='Cedula [CC]' onChange={handleChangeId} error={isErrorId} />
+            <div class="container">
+                <div class="screen">
+                    <div class="screen__content">
+                        <div class="login">
+                            <div class="login__field">
 
-                            <Form.Input
-                                fluid
-                                icon='lock'
-                                iconPosition='left'
-                                placeholder='Contraseña'
-                                type='password'
-                                value={password}
-                                onChange={handleChangePass}
-                                autoComplete={password.value}
-                                error={isErrorpass}
-
-                            />
-
-                            <Button primary fluid size='large' loading={isloading} onClick={() => handleSubmit()}>
-                                Iniciar Sesión
-                            </Button>
-
-                        </Segment>
-
-                    </Form>
-                    <Message>
-                        No tienes usuario? <a href='/'>Contáctenos</a>
-                    </Message>
-                </Grid.Column>
-            </Grid>
+                                <HiOutlineIdentification size={19} class="login__icon fas fa-user" />
+                                <input type="text" class="login__input" placeholder="Cedula [cc]" value={username} onChange={handleChangeId} />
+                            </div>
+                            <div class="login__field">
+                                <HiOutlineLockOpen class="login__icon fas fa-lock" />
+                                <input type="password" class="login__input" placeholder="Contraseña" value={password} onChange={handleChangePass} />
+                            </div>
+                            <button class="button login__submit" onClick={() => handleSubmit()}>
+                                <span class="button__text">Iniciar Sesión</span>
+                                <HiOutlineChevronRight class="button__icon fas fa-chevron-right" />
+                            </button>
+                        </div>
+                        {/* <div class="company__login">
+                            <h3>Prod by</h3>
+                        </div> */}
+                    </div>
+                    <div class="screen__background">
+                        <span class="screen__background__shape screen__background__shape4"></span>
+                        <span class="screen__background__shape screen__background__shape3"></span>
+                        <span class="screen__background__shape screen__background__shape2"></span>
+                        <span class="screen__background__shape screen__background__shape1"></span>
+                    </div>
+                </div>
+            </div>
         </>
     )
 }

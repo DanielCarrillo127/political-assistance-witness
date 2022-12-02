@@ -1,10 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500&display=swap');
+
+/* Global color definition */
+:root {
+  --background-clear-color: #f3f6fd;
+  --background-dark-color: #1b2431;
+  --main-bg-color: #00296B;
+  --second-bg-color: #003F88;
+  --primary-color: #00509D;
+  --secundary-color: #FFD500;
+  --black-color: #000;
+  --white-color: #fff;
+  --text-grey:  #8390A2;
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  font-family: 'Poppins' ,sans-serif;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: var(--background-dark-color);
+  /* background: linear-gradient(120deg, var(--white-color), var(--primary-color));    */
 }
 
 code {

@@ -1,0 +1,27 @@
+.card__single {
+    display: flex;
+    justify-content: space-between;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 13px;
+}
+
+.card__single div:last-child   {
+    color: var(--background-dark-color);
+    font-size: 2.5rem;
+}
+
+.card__single div:first-child  {
+    color: var(--background-dark-color);
+    font-size: 0.8rem;
+}
+
+.card__single:last-child {
+    background: var(--background-dark-color);
+}
+
+.card__single:last-child h1,
+.card__single:last-child div:first-child ,
+.card__single:last-child div:last-child {
+    color: #fff;
+}

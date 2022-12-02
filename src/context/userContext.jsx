@@ -4,7 +4,7 @@ import React, { useState } from "react";
 export const DataContext = React.createContext();
 export const UserContext = ({ children }) => {
   const [user, setUser] = useState({});
-  // const [Handleonclick, setHDL] = useState("home");
+  const [Handleonclick, setHDL] = useState("home");
 
   const saveUser = async (token, info) => {
     window.localStorage.setItem("TOKEN", token);
@@ -31,7 +31,9 @@ export const UserContext = ({ children }) => {
         user,
         saveUser,
         logOutUser,
-        handelSession
+        handelSession,
+        setHDL,
+        Handleonclick
       }}
     >
       {children}

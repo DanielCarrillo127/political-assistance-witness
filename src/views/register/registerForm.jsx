@@ -1,134 +1,134 @@
-import { useState } from 'react'
-import { Button, Form, Grid, Header, Segment, Dropdown, Checkbox } from 'semantic-ui-react';
-import { optionsEconomicSector } from '../../utils/constant';
-import { toast } from "react-toastify";
-import { registerApi } from '../../api/request';
+// import { useState } from 'react'
+
+// import { optionsEconomicSector } from '../../utils/constant';
+// import { toast } from "react-toastify";
+// import { registerApi } from '../../api/request';
 
 
 const RegisterForm = () => {
 
-    const [isloading, setIsloading] = useState(false);
-    const [name, setName] = useState("");
-    const [surnames, setSurnames] = useState("");
-    const [cedula, setCedula] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [address, setAddress] = useState("");
-    const [sex, setSex] = useState("");
-    const [age, setAge] = useState("");
-    const [votingBooth, setVotingBooth] = useState("");
-    const [table, setTable] = useState("");
-    const [leaderid, setLeaderid] = useState("");
-    const [productiveSection, setProductiveSection] = useState("");
+    // const [isloading, setIsloading] = useState(false);
+    // const [name, setName] = useState("");
+    // const [surnames, setSurnames] = useState("");
+    // const [cedula, setCedula] = useState("");
+    // const [phoneNumber, setPhoneNumber] = useState("");
+    // const [address, setAddress] = useState("");
+    // const [sex, setSex] = useState("");
+    // const [age, setAge] = useState("");
+    // const [votingBooth, setVotingBooth] = useState("");
+    // const [table, setTable] = useState("");
+    // const [leaderid, setLeaderid] = useState("");
+    // const [productiveSection, setProductiveSection] = useState("");
 
-    const [checkPlace, setCheckPlace] = useState(false);
-    const [checkTable, setCheckTable] = useState(false);
-    //set handlers for inputs
-    const handleChangeCedula = (e) => { setCedula(e.target.value) };
-    const handleChangeName = (e) => { setName(e.target.value) };
-    const handleChangeSurname = (e) => { setSurnames(e.target.value) };
-    const handleChangePhoneNumber = (e) => { setPhoneNumber(e.target.value) };
-    const handleChangeSex = (e, { value }) => { setSex(value) };
-    const handleChangeAddress = (e) => { setAddress(e.target.value) };
-    const handleChangeAge = (e) => { setAge(e.target.value) };
-    const handleChangeVotingBooth = (e) => { setVotingBooth(e.target.value) };
-    const handleChangeTable = (e) => { setTable(e.target.value) };
-    const handleChangeLeaderid = (e) => { setLeaderid(e.target.value) };
-    const handleChangeSection = (e, { value }) => { setProductiveSection(value) };
+    // const [checkPlace, setCheckPlace] = useState(false);
+    // const [checkTable, setCheckTable] = useState(false);
+    // //set handlers for inputs
+    // const handleChangeCedula = (e) => { setCedula(e.target.value) };
+    // const handleChangeName = (e) => { setName(e.target.value) };
+    // const handleChangeSurname = (e) => { setSurnames(e.target.value) };
+    // const handleChangePhoneNumber = (e) => { setPhoneNumber(e.target.value) };
+    // const handleChangeSex = (e, { value }) => { setSex(value) };
+    // const handleChangeAddress = (e) => { setAddress(e.target.value) };
+    // const handleChangeAge = (e) => { setAge(e.target.value) };
+    // const handleChangeVotingBooth = (e) => { setVotingBooth(e.target.value) };
+    // const handleChangeTable = (e) => { setTable(e.target.value) };
+    // const handleChangeLeaderid = (e) => { setLeaderid(e.target.value) };
+    // const handleChangeSection = (e, { value }) => { setProductiveSection(value) };
 
-    const options = [
-        { key: 1, text: 'Hombre', value: '1' },
-        { key: 2, text: 'Mujer', value: '2' },
-        { key: 3, text: 'Prefiero no indicarlo', value: '3' },
-    ]
+    // const options = [
+    //     { key: 1, text: 'Hombre', value: '1' },
+    //     { key: 2, text: 'Mujer', value: '2' },
+    //     { key: 3, text: 'Prefiero no indicarlo', value: '3' },
+    // ]
 
 
-    const handleSubmit = async () => {
-        setIsloading(true)
-        if (name === "" || surnames === "" || cedula === "" || phoneNumber === "" || address === "" || sex === "" || age === "" || leaderid === "") {
-            toast.warn(`Debes ingresar todos los campos marcados (*) para realizar el registro`, {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-            });
-            setIsloading(false)
-        } else {
-            if (4 < cedula.length && cedula.length <= 10) {
-                const newUser = {
-                    name: name,
-                    surnames: surnames,
-                    cedula: cedula,
-                    phoneNumber: phoneNumber,
-                    sex: sex,
-                    address: address,
-                    age: age,
-                    votingBooth: votingBooth ? votingBooth : null,
-                    table: table ? table : null,
-                    leaderid: leaderid,
-                    productiveSection: productiveSection ? productiveSection : "No identifica",
-                }
-                const req = await registerApi(newUser);
-                if (req.status === 201) {
-                    toast.success(`Usuario Registrado Correctamente`, {
-                        position: "top-right",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: false,
-                        draggable: true,
-                        progress: undefined,
-                    });
-                    setIsloading(false)
-                } else {
-                    if (req.response.status === 208) {
-                        toast.warn(`El usuario ya se encuentra registrado`, {
-                            position: "top-right",
-                            autoClose: 3000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: false,
-                            draggable: true,
-                            progress: undefined,
-                        });
-                    }
-                    setIsloading(false)
+    // const handleSubmit = async () => {
+    //     setIsloading(true)
+    //     if (name === "" || surnames === "" || cedula === "" || phoneNumber === "" || address === "" || sex === "" || age === "" || leaderid === "") {
+    //         toast.warn(`Debes ingresar todos los campos marcados (*) para realizar el registro`, {
+    //             position: "top-right",
+    //             autoClose: 3000,
+    //             hideProgressBar: false,
+    //             closeOnClick: true,
+    //             pauseOnHover: false,
+    //             draggable: true,
+    //             progress: undefined,
+    //         });
+    //         setIsloading(false)
+    //     } else {
+    //         if (4 < cedula.length && cedula.length <= 10) {
+    //             const newUser = {
+    //                 name: name,
+    //                 surnames: surnames,
+    //                 cedula: cedula,
+    //                 phoneNumber: phoneNumber,
+    //                 sex: sex,
+    //                 address: address,
+    //                 age: age,
+    //                 votingBooth: votingBooth ? votingBooth : null,
+    //                 table: table ? table : null,
+    //                 leaderid: leaderid,
+    //                 productiveSection: productiveSection ? productiveSection : "No identifica",
+    //             }
+    //             const req = await registerApi(newUser);
+    //             if (req.status === 201) {
+    //                 toast.success(`Usuario Registrado Correctamente`, {
+    //                     position: "top-right",
+    //                     autoClose: 3000,
+    //                     hideProgressBar: false,
+    //                     closeOnClick: true,
+    //                     pauseOnHover: false,
+    //                     draggable: true,
+    //                     progress: undefined,
+    //                 });
+    //                 setIsloading(false)
+    //             } else {
+    //                 if (req.response.status === 208) {
+    //                     toast.warn(`El usuario ya se encuentra registrado`, {
+    //                         position: "top-right",
+    //                         autoClose: 3000,
+    //                         hideProgressBar: false,
+    //                         closeOnClick: true,
+    //                         pauseOnHover: false,
+    //                         draggable: true,
+    //                         progress: undefined,
+    //                     });
+    //                 }
+    //                 setIsloading(false)
                     
-                }
+    //             }
 
-                    //clear inputs
-                    setName("")
-                    setSurnames("")
-                    setCedula("")
-                    setPhoneNumber("")
-                    setSex("")
-                    setAge("")
-                    setAddress("")
-                    setVotingBooth("")
-                    setTable("")
-                    setLeaderid("")
-                    setProductiveSection("")
-            } else {
-                toast.warn(`Ingrese una Cedula Valida`, {
-                    position: "top-right",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: false,
-                    draggable: true,
-                    progress: undefined,
-                });
-                setIsloading(false)
-            }
+    //                 //clear inputs
+    //                 setName("")
+    //                 setSurnames("")
+    //                 setCedula("")
+    //                 setPhoneNumber("")
+    //                 setSex("")
+    //                 setAge("")
+    //                 setAddress("")
+    //                 setVotingBooth("")
+    //                 setTable("")
+    //                 setLeaderid("")
+    //                 setProductiveSection("")
+    //         } else {
+    //             toast.warn(`Ingrese una Cedula Valida`, {
+    //                 position: "top-right",
+    //                 autoClose: 3000,
+    //                 hideProgressBar: false,
+    //                 closeOnClick: true,
+    //                 pauseOnHover: false,
+    //                 draggable: true,
+    //                 progress: undefined,
+    //             });
+    //             setIsloading(false)
+    //         }
 
-        };
-    }
+    //     };
+    // }
 
     return (
         <>
-            <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+            {/* <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
                 <Grid.Column style={{ maxWidth: 500 }}>
                     <Header as='h2' textAlign='center'>
                         Registro En Planilla
@@ -181,7 +181,7 @@ const RegisterForm = () => {
 
                     </Form>
                 </Grid.Column>
-            </Grid>
+            </Grid> */}
         </>
     )
 }
