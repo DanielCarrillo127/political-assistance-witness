@@ -13,14 +13,14 @@ const HomePage = () => {
         <Cards title={`"Likes" en redes sociales`} number="+1200" icon={<HiHeart size={50}/>}/>
       </div>
 
-      {/* <div class="recent-grid">
-        <div class="projects">
-          <div class="card">
-            <div class="card-header">
-              <h2>Recent Projects</h2>
-              <button>See all <span class="fas fa-arrow-right"></span> </button>
+      <div className="home__grid">
+        <div>
+          <div className="container__component">
+            <div className="container__header">
+              <h2>Novedades</h2>
+              <button>Mas </button>
             </div>
-            <div class="card-body">
+            {/* <div>
               <div class="table-responsive">
                 <table width="100%">
                   <thead>
@@ -76,19 +76,19 @@ const HomePage = () => {
 
                 </table>
               </div>
-            </div>
+            </div> */}
 
           </div>
 
         </div>
 
-        <div class="customers">
-          <div class="card">
-            <div class="card-header">
-              <h2>New Customers</h2>
-              <button>See all <span class="fas fa-arrow-right"></span> </button>
+        <div>
+          <div className="container__component">
+            <div className="container__header">
+              <h2>Proximos Eventos</h2>
+              <button>Conoce Mas</button>
             </div>
-            <div class="card-body">
+            {/* <div>
               <div class="customer">
                 <div class="info">
                   <img src="https://bit.ly/3bvT89p" height="40px" width="40px" alt="customer" />
@@ -187,12 +187,13 @@ const HomePage = () => {
                   <span class="fas fa-phone-alt"></span>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
 
         </div>
 
-      </div> */}
+      </div>
+      
     </>
   )
 }

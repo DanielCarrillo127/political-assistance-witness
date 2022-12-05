@@ -34,3 +34,63 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.container__component {
+  background: #fff;
+  border-radius: 13px;
+}
+.container__header{
+  padding: 1rem;
+}
+
+.container__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.container__header button {
+  background: var(--background-dark-color);
+  border-radius: 10px;
+  color: #fff;
+  font-size: .8rem;
+  padding: .5rem 1rem;
+  border: 1px solid var(--background-dark-color);
+}
+
+
+table {
+  border-collapse: collapse;
+}
+
+thead tr {
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 2px solid #f0f0f0;
+
+}
+
+thead td {
+  font-weight: 700;
+}
+
+td {
+  padding: .5rem 1rem;
+  font-size: .9rem;
+  color: #222;
+
+}
+
+tr td:last-child {
+  display: flex;
+  align-items: center;
+
+
+}
+
+
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}

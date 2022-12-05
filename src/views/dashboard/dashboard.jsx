@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './dashboard.css';
 import { DataContext } from "../../context/userContext";
 import { HiOutlineMenu, HiOutlineHome, HiOutlineDocumentText, HiOutlineChartBar, HiOutlineChatAlt2, HiOutlineCalendar, HiOutlineAtSymbol, HiOutlineInboxIn, HiOutlineLightningBolt } from "react-icons/hi";
@@ -9,30 +9,39 @@ import FormTablePage from '../../components/formTablePage/formTablePage';
 const Dashboard = () => {
 
   //set to global state 
-  const { user, handelSession, setHDL, Handleonclick } = useContext(DataContext);
+  const { user, handelSession, saveHdl, Handleonclick } = useContext(DataContext);
+  const [levelRestrictions, setLevelRestrictions] = useState(0)
 
-  useEffect(() => {
+  useEffect( () => {
     handelSession();
-    // editHDL("home");
+    setLevel()
+    //not working
+
   }, []);
 
-  //role system (disable) and nav logic (active classname)
-  //candidate and admin use everything
-  //coordinator H,T,E,C,T
-  //leader H,P
+  const setLevel = () =>{
+    if (user?.role === 'COORDINATOR') {
+      setLevelRestrictions(2)
+    } else if (user?.role === 'LEADER') {
+      setLevelRestrictions(3)
+    } else { //is admin or candidate
+      setLevelRestrictions(1)
+    }
+  }
+
+  //role system (disable) 
+  //candidate and admin use everything coor+estadisticas
+  //coordinator H,T,Event,C,T
+  //leader H,T
 
   const SelectionView = () => {
     switch (Handleonclick) {
       case "home":
         return <HomePage />;
       case "formTable":
-        return (
-          <>
-            <FormTablePage />
-          </>
-        );
+        return <FormTablePage />;
       default:
-        return <HomePage/>;
+        return <HomePage />;
     }
   };
 
@@ -50,43 +59,43 @@ const Dashboard = () => {
         <div className="sidebar__menu">
           <ul>
             <li>
-              <div className={`${Handleonclick === 'home' ? "active" : ""} itemMenu`} onClick={() => setHDL('home')} >
+              <div className={`${Handleonclick === 'home' ? "active" : ""} itemMenu`} onClick={() => saveHdl('home')} >
                 <HiOutlineHome size={25} className="icon" />
                 <span>Incio</span>
               </div>
             </li>
             <li>
-              <div className={`${Handleonclick === 'formTable' ? "active" : ""} itemMenu`} onClick={() => setHDL('formTable') }>
+              <div className={`${Handleonclick === 'formTable' ? "active" : ""} itemMenu`} onClick={() => saveHdl('formTable')}>
                 <HiOutlineDocumentText size={25} className='icon' />
                 <span>Planillas</span>
               </div>
             </li>
             <li>
-              <div className="itemMenu">
+              <div className={`${levelRestrictions > 1 ? "disabled" : ""} itemMenu`}>
                 <HiOutlineChartBar size={25} className='icon' />
                 <span>Estadisticas</span>
               </div>
             </li>
             <li>
-              <div className="itemMenu">
+              <div className={`${levelRestrictions > 2 ? "disabled" : ""} itemMenu`}>
                 <HiOutlineCalendar size={25} className='icon' />
                 <span>Eventos</span>
               </div>
             </li>
             <li>
-              <div className="itemMenu">
+              <div className={`${levelRestrictions > 2 ? "disabled" : ""} itemMenu`}>
                 <HiOutlineChatAlt2 size={25} className='icon' />
                 <span>Comunicaciones</span>
               </div>
             </li>
             <li>
-              <div className="itemMenu">
+              <div className={`${levelRestrictions > 2 ? "disabled" : ""} itemMenu`}>
                 <HiOutlineInboxIn size={25} className='icon' />
                 <span>Testigos Electorales</span>
               </div>
             </li>
             <li>
-              <div className="itemMenu">
+              <div className={`disabled itemMenu`}>
                 <HiOutlineLightningBolt size={25} className='icon' />
                 <span>Extra</span>
               </div>
@@ -116,7 +125,7 @@ const Dashboard = () => {
                 : "JD"}
 
             </div>
-            <div className="">
+            <div className='userName'>
               <h4>{user?.name + " " + user?.surnames}</h4>
               <small>Role [{user?.role}]</small>
             </div>
@@ -124,7 +133,7 @@ const Dashboard = () => {
         </header>
 
         <main>
-        <SelectionView/>
+          <SelectionView />
         </main>
       </div>
     </>

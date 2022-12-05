@@ -105,33 +105,33 @@ const Login = () => {
 
     return (
         <>
-            <div class="container">
-                <div class="screen">
-                    <div class="screen__content">
-                        <div class="login">
-                            <div class="login__field">
+            <div className="container">
+                <div className="screen">
+                    <div className="screen__content">
+                        <div className="login">
+                            <div className="login__field">
 
-                                <HiOutlineIdentification size={19} class="login__icon fas fa-user" />
-                                <input type="text" class="login__input" placeholder="Cedula [cc]" value={username} onChange={handleChangeId} />
+                                <HiOutlineIdentification size={19} className="login__icon fas fa-user" />
+                                <input type="text" className="login__input" placeholder="Cedula [cc]" value={username} onChange={handleChangeId} />
                             </div>
-                            <div class="login__field">
-                                <HiOutlineLockOpen class="login__icon fas fa-lock" />
-                                <input type="password" class="login__input" placeholder="Contraseña" value={password} onChange={handleChangePass} />
+                            <div className="login__field">
+                                <HiOutlineLockOpen className="login__icon fas fa-lock" />
+                                <input type="password" className="login__input" placeholder="Contraseña" value={password} onChange={handleChangePass} />
                             </div>
-                            <button class="button login__submit" onClick={() => handleSubmit()}>
-                                <span class="button__text">Iniciar Sesión</span>
-                                <HiOutlineChevronRight class="button__icon fas fa-chevron-right" />
+                            <button className="button login__submit" onClick={() => handleSubmit()}>
+                                <span className="button__text">Iniciar Sesión</span>
+                                <HiOutlineChevronRight className="button__icon fas fa-chevron-right" />
                             </button>
                         </div>
-                        {/* <div class="company__login">
+                        {/* <div className="company__login">
                             <h3>Prod by</h3>
                         </div> */}
                     </div>
-                    <div class="screen__background">
-                        <span class="screen__background__shape screen__background__shape4"></span>
-                        <span class="screen__background__shape screen__background__shape3"></span>
-                        <span class="screen__background__shape screen__background__shape2"></span>
-                        <span class="screen__background__shape screen__background__shape1"></span>
+                    <div className="screen__background">
+                        <span className="screen__background__shape screen__background__shape4"></span>
+                        <span className="screen__background__shape screen__background__shape3"></span>
+                        <span className="screen__background__shape screen__background__shape2"></span>
+                        <span className="screen__background__shape screen__background__shape1"></span>
                     </div>
                 </div>
             </div>
