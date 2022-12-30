@@ -18,17 +18,16 @@ const FormTablePage = () => {
                             <option value="4">Listado de coordinadores</option>
                             <option value="5">Listado de lideres cargados por el coordinador</option>
                         </select>
-                        <input placeholder='ingrese la cedula [CC]'/>
+                        <input placeholder='ingrese la cedula [CC]' />
                         <button>Buscar</button>
 
                         <div>
                             <div>
-                            <button> descargar xlsx</button>
+                                <button> descargar xlsx</button>
                                 <div class="table-responsive">
                                     <table width="100%">
                                         <thead>
-                                            
-    
+
                                             <tr>
                                                 <td>Cedula</td>
                                                 <td>Nombre</td>

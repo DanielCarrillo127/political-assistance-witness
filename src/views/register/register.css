@@ -1,0 +1,40 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: var(--background-dark-color);
+}
+
+.register__icon {
+    position: absolute;
+    top: 7px;
+    left:5px;
+    color: var(--text-grey);
+}
+
+.form__title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0px 15px 0px;
+}
+/* 
+.input__form{
+    padding-bottom: 10px;
+    /* padding: 1em; 
+    
+}*/
+
+
+.grid__container {
+    display: grid;
+    grid-template-columns: 15% auto;
+    padding: 10px 25px 10px 15px;
+}
+
+@media only screen and (max-width: 768px) {
+    .grid__container {
+        grid-template-columns: 25% auto;
+    }
+}

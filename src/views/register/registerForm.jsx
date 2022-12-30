@@ -1,187 +1,250 @@
-// import { useState } from 'react'
-
-// import { optionsEconomicSector } from '../../utils/constant';
-// import { toast } from "react-toastify";
-// import { registerApi } from '../../api/request';
+import { useState } from 'react'
+import { optionsEconomicSector } from '../../utils/constant';
+import { toast } from "react-toastify";
+import { registerApi } from '../../api/request';
+import { Input, InputGroup, Whisper, Tooltip, SelectPicker, Toggle, Button } from 'rsuite';
+import InfoIcon from '@rsuite/icons/legacy/Info';
+import { HiOutlineIdentification, HiOutlineUserCircle, HiOutlineMinusCircle, HiHashtag, HiOutlineCake, HiOutlineLocationMarker, HiOutlineInboxIn, HiOutlineLibrary } from "react-icons/hi";
+import './register.css'
 
 
 const RegisterForm = () => {
 
-    // const [isloading, setIsloading] = useState(false);
-    // const [name, setName] = useState("");
-    // const [surnames, setSurnames] = useState("");
-    // const [cedula, setCedula] = useState("");
-    // const [phoneNumber, setPhoneNumber] = useState("");
-    // const [address, setAddress] = useState("");
-    // const [sex, setSex] = useState("");
-    // const [age, setAge] = useState("");
-    // const [votingBooth, setVotingBooth] = useState("");
-    // const [table, setTable] = useState("");
-    // const [leaderid, setLeaderid] = useState("");
-    // const [productiveSection, setProductiveSection] = useState("");
+    const [isloading, setIsloading] = useState(false);
+    const [name, setName] = useState("");
+    const [surnames, setSurnames] = useState("");
+    const [cedula, setCedula] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [address, setAddress] = useState("");
+    const [sex, setSex] = useState("");
+    const [age, setAge] = useState("");
+    const [votingBooth, setVotingBooth] = useState("");
+    const [table, setTable] = useState("");
+    const [leaderid, setLeaderid] = useState("");
+    const [productiveSection, setProductiveSection] = useState("");
 
-    // const [checkPlace, setCheckPlace] = useState(false);
-    // const [checkTable, setCheckTable] = useState(false);
-    // //set handlers for inputs
-    // const handleChangeCedula = (e) => { setCedula(e.target.value) };
-    // const handleChangeName = (e) => { setName(e.target.value) };
-    // const handleChangeSurname = (e) => { setSurnames(e.target.value) };
-    // const handleChangePhoneNumber = (e) => { setPhoneNumber(e.target.value) };
-    // const handleChangeSex = (e, { value }) => { setSex(value) };
-    // const handleChangeAddress = (e) => { setAddress(e.target.value) };
-    // const handleChangeAge = (e) => { setAge(e.target.value) };
-    // const handleChangeVotingBooth = (e) => { setVotingBooth(e.target.value) };
-    // const handleChangeTable = (e) => { setTable(e.target.value) };
-    // const handleChangeLeaderid = (e) => { setLeaderid(e.target.value) };
-    // const handleChangeSection = (e, { value }) => { setProductiveSection(value) };
+    const [checkPlace, setCheckPlace] = useState(false);
+    const [checkTable, setCheckTable] = useState(false);
 
-    // const options = [
-    //     { key: 1, text: 'Hombre', value: '1' },
-    //     { key: 2, text: 'Mujer', value: '2' },
-    //     { key: 3, text: 'Prefiero no indicarlo', value: '3' },
-    // ]
+    //set handlers for inputs
+    const handleChangeCedula = (e) => { setCedula(e) };
+    const handleChangeName = (e) => { setName(e) };
+    const handleChangeSurname = (e) => { setSurnames(e) };
+    const handleChangePhoneNumber = (e) => { setPhoneNumber(e) };
+    const handleChangeSex = (e) => { setSex(e) };
+    const handleChangeAddress = (e) => { setAddress(e) };
+    const handleChangeAge = (e) => { setAge(e) };
+    const handleChangeVotingBooth = (e) => { setVotingBooth(e) };
+    const handleChangeTable = (e) => { setTable(e) };
+    const handleChangeLeaderid = (e) => { setLeaderid(e) };
+    const handleChangeSection = (e) => { setProductiveSection(e) };
 
+    const optionSex = [
+        { key: 1, label: 'Hombre', value: '1' },
+        { key: 2, label: 'Mujer', value: '2' },
+        { key: 3, label: 'Prefiero no indicarlo', value: '3' },
+    ]
 
-    // const handleSubmit = async () => {
-    //     setIsloading(true)
-    //     if (name === "" || surnames === "" || cedula === "" || phoneNumber === "" || address === "" || sex === "" || age === "" || leaderid === "") {
-    //         toast.warn(`Debes ingresar todos los campos marcados (*) para realizar el registro`, {
-    //             position: "top-right",
-    //             autoClose: 3000,
-    //             hideProgressBar: false,
-    //             closeOnClick: true,
-    //             pauseOnHover: false,
-    //             draggable: true,
-    //             progress: undefined,
-    //         });
-    //         setIsloading(false)
-    //     } else {
-    //         if (4 < cedula.length && cedula.length <= 10) {
-    //             const newUser = {
-    //                 name: name,
-    //                 surnames: surnames,
-    //                 cedula: cedula,
-    //                 phoneNumber: phoneNumber,
-    //                 sex: sex,
-    //                 address: address,
-    //                 age: age,
-    //                 votingBooth: votingBooth ? votingBooth : null,
-    //                 table: table ? table : null,
-    //                 leaderid: leaderid,
-    //                 productiveSection: productiveSection ? productiveSection : "No identifica",
-    //             }
-    //             const req = await registerApi(newUser);
-    //             if (req.status === 201) {
-    //                 toast.success(`Usuario Registrado Correctamente`, {
-    //                     position: "top-right",
-    //                     autoClose: 3000,
-    //                     hideProgressBar: false,
-    //                     closeOnClick: true,
-    //                     pauseOnHover: false,
-    //                     draggable: true,
-    //                     progress: undefined,
-    //                 });
-    //                 setIsloading(false)
-    //             } else {
-    //                 if (req.response.status === 208) {
-    //                     toast.warn(`El usuario ya se encuentra registrado`, {
-    //                         position: "top-right",
-    //                         autoClose: 3000,
-    //                         hideProgressBar: false,
-    //                         closeOnClick: true,
-    //                         pauseOnHover: false,
-    //                         draggable: true,
-    //                         progress: undefined,
-    //                     });
-    //                 }
-    //                 setIsloading(false)
-                    
-    //             }
+    const size = 20;
 
-    //                 //clear inputs
-    //                 setName("")
-    //                 setSurnames("")
-    //                 setCedula("")
-    //                 setPhoneNumber("")
-    //                 setSex("")
-    //                 setAge("")
-    //                 setAddress("")
-    //                 setVotingBooth("")
-    //                 setTable("")
-    //                 setLeaderid("")
-    //                 setProductiveSection("")
-    //         } else {
-    //             toast.warn(`Ingrese una Cedula Valida`, {
-    //                 position: "top-right",
-    //                 autoClose: 3000,
-    //                 hideProgressBar: false,
-    //                 closeOnClick: true,
-    //                 pauseOnHover: false,
-    //                 draggable: true,
-    //                 progress: undefined,
-    //             });
-    //             setIsloading(false)
-    //         }
+    const styles = {
+        marginBottom: 10,
+        marginRight: 10,
+        marginLeft: 10,
+    };
 
-    //     };
-    // }
+    const handleSubmit = async () => {
+        setIsloading(true)
+        if (name === "" || surnames === "" || cedula === "" || phoneNumber === "" || address === "" || sex === "" || age === "" || leaderid === "") {
+            toast.warn(`Debes ingresar todos los campos marcados (*) para realizar el registro`, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+            });
+            setIsloading(false)
+        } else {
+            if (4 < cedula.length && cedula.length <= 10) {
+                const newUser = {
+                    name: name,
+                    surnames: surnames,
+                    cedula: cedula,
+                    phoneNumber: phoneNumber,
+                    sex: sex,
+                    address: address,
+                    age: age,
+                    votingBooth: votingBooth ? votingBooth : null,
+                    table: table ? table : null,
+                    leaderid: leaderid,
+                    productiveSection: productiveSection ? productiveSection : "No identifica",
+                }
+                const req = await registerApi(newUser);
+                if (req.status === 201) {
+                    toast.success(`Usuario Registrado Correctamente`, {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: false,
+                        draggable: true,
+                        progress: undefined,
+                    });
+                    setIsloading(false)
+                } else {
+                    if (req.response.status === 208) {
+                        toast.warn(`El usuario ya se encuentra registrado`, {
+                            position: "top-right",
+                            autoClose: 3000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: false,
+                            draggable: true,
+                            progress: undefined,
+                        });
+                    }
+                    setIsloading(false)
+
+                }
+
+                    //clear inputs
+                    setName("")
+                    setSurnames("")
+                    setCedula("")
+                    setPhoneNumber("")
+                    setSex("")
+                    setAge("")
+                    setAddress("")
+                    setVotingBooth("")
+                    setTable("")
+                    setLeaderid("")
+                    setProductiveSection("")
+            } else {
+                toast.warn(`Ingrese una Cedula Valida`, {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: false,
+                    draggable: true,
+                    progress: undefined,
+                });
+                setIsloading(false)
+            }
+
+        };
+    }
 
     return (
         <>
-            {/* <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
-                <Grid.Column style={{ maxWidth: 500 }}>
-                    <Header as='h2' textAlign='center'>
-                        Registro En Planilla
-                    </Header>
-                    <Form size='large'>
-                        <Segment stacked>
-                            <Form.Input fluid icon='user' iconPosition='left' placeholder='Nombre*' value={name} onChange={handleChangeName} />
-                            <Form.Input fluid icon='circle' iconPosition='left' placeholder='Apellidos*' value={surnames} onChange={handleChangeSurname} />
-                            <Form.Input type='number' fluid icon='id card' iconPosition='left' placeholder='Cedula* [CC]' value={cedula} onChange={handleChangeCedula} />
-                            <Form.Input type='number' fluid icon='hashtag' iconPosition='left' placeholder='Tel*' value={phoneNumber} onChange={handleChangePhoneNumber} />
-                            <div style={{ paddingBottom: '1em' }}>
-                                <Dropdown fluid clearable placeholder='Sexo*' options={options} selection value={sex} onChange={handleChangeSex} />
-                            </div>
-                            <Form.Input type='number' min="18" max="75" fluid icon='id card outline' iconPosition='left' placeholder='Edad*' value={age} onChange={handleChangeAge} />
-                            <Form.Input fluid icon='map marker alternate' iconPosition='left' placeholder='Dirección*' value={address} onChange={handleChangeAddress} />
-                            <div style={{ textAlign: 'left', fontWeight: 'bold', color: 'rgba(34,36,38,.58)' }}>
+            <div className='container'>
+                <div className='container__component'>
+                    <div>
+                        <h4 className='form__title'>
+                            Registro En Planilla
+                        </h4>
+                    </div>
+                    <div style={styles} >
+                        <div style={styles}>
+                            <InputGroup inside >
+                                <InputGroup.Addon>
+                                    <HiOutlineUserCircle size={size} className="register__icon" />
+                                </InputGroup.Addon>
+                                <Input placeholder='Nombre*' block value={name} onChange={handleChangeName} />
+                            </InputGroup>
+                        </div>
+                        <div style={styles}>
+                            <InputGroup inside>
+                                <InputGroup.Addon>
+                                    <HiOutlineMinusCircle size={size} className="register__icon" />
+                                </InputGroup.Addon>
+                                <Input placeholder='Apellidos*' block value={surnames} onChange={handleChangeSurname} />
+                            </InputGroup>
+                        </div>
+                        <div style={styles}>
+                            <InputGroup inside>
+                                <InputGroup.Addon>
+                                    <HiOutlineIdentification size={size} className="register__icon" />
+                                </InputGroup.Addon>
+                                <Input placeholder='Cedula* [CC]' block value={cedula} onChange={handleChangeCedula} />
+                                <InputGroup.Addon>
+                                    <Whisper placement="right" speaker={<Tooltip> Id sin espacios o separadores especiales ,-.</Tooltip>}>
+                                        <InfoIcon />
+                                    </Whisper>
+                                </InputGroup.Addon>
+                            </InputGroup>
+                        </div>
+                        <div style={styles}>
+                            <InputGroup inside>
+                                <InputGroup.Addon>
+                                    <HiHashtag size={size} className="register__icon" />
+                                </InputGroup.Addon>
+                                <Input type='number' placeholder='Tel*' block value={phoneNumber} onChange={handleChangePhoneNumber} />
+                            </InputGroup>
+                        </div>
+
+                        <div style={styles}>
+                            <SelectPicker placeholder="Sexo*" data={optionSex} searchable={false} block value={sex} onChange={handleChangeSex} />
+                        </div>
+                        <div style={styles}>
+                            <InputGroup inside>
+                                <InputGroup.Addon>
+                                    <HiOutlineCake size={size} className="register__icon" />
+                                </InputGroup.Addon>
+                                <Input type='number' placeholder='Edad*' block value={age} onChange={handleChangeAge} />
+                            </InputGroup>
+                        </div>
+                        <div style={styles}>
+                            <InputGroup inside>
+                                <InputGroup.Addon>
+                                    <HiOutlineLocationMarker size={size} className="register__icon" />
+                                </InputGroup.Addon>
+                                <Input type='text' placeholder='Dirección*' block value={address} onChange={handleChangeAddress} />
+                            </InputGroup>
+                        </div>
+                        <div style={{ padding: '1em' }}>
+                            <div style={{ textAlign: 'left', color: 'rgba(34,36,38,.58)' }}>
                                 Ingrese solo si conoce la localidad y la mesa exacta de votación.
                             </div>
-
-                            <div style={{ padding: '1em' }}>
-                                <Grid>
-                                    <Grid.Row >
-                                        <Grid.Column width={2} verticalAlign='middle' >
-                                            <Checkbox toggle onChange={(e, data) => setCheckPlace(data.checked)} checked={checkPlace} />
-                                        </Grid.Column>
-                                        <Grid.Column width={14}>
-                                            <Form.Input disabled={!checkPlace} type='text' icon='zip' iconPosition='left' placeholder='Puesto de Votación' value={votingBooth} onChange={handleChangeVotingBooth} />
-                                        </Grid.Column>
-                                    </Grid.Row>
-
-                                    <Grid.Row>
-                                        <Grid.Column width={2} verticalAlign='middle' >
-                                            <Checkbox toggle onChange={(e, data) => setCheckTable(data.checked)} checked={checkTable} />
-                                        </Grid.Column>
-                                        <Grid.Column width={14}>
-                                            <Form.Input disabled={!checkTable} type='text' icon='clone' iconPosition='left' placeholder='Mesa de Votación' value={table} onChange={handleChangeTable} />
-                                        </Grid.Column>
-                                    </Grid.Row>
-                                </Grid>
+                            <div className='grid__container'>
+                                <Toggle style={{marginTop:5}} defaultChecked={checkPlace} onChange={(e) => setCheckPlace(e)} />
+                                <InputGroup inside style={{marginBottom:10}}>
+                                    <InputGroup.Addon>
+                                        <HiOutlineLibrary size={size} className="register__icon" />
+                                    </InputGroup.Addon>
+                                    <Input disabled={!checkPlace} type='text' placeholder='Puesto de Votación' block value={votingBooth} onChange={handleChangeVotingBooth} />
+                                </InputGroup>
+                                <Toggle style={{marginTop:5}} defaultChecked={checkTable} onChange={(e) => setCheckTable(e)} />
+                                <InputGroup inside>
+                                    <InputGroup.Addon>
+                                        <HiOutlineInboxIn size={size} className="register__icon" />
+                                    </InputGroup.Addon>
+                                    <Input disabled={!checkTable} type='text' placeholder='Mesa de Votación' block value={table} onChange={handleChangeTable} />
+                                </InputGroup>
                             </div>
-                            <div style={{ paddingBottom: '1em' }}>
-                                <Dropdown fluid clearable placeholder='Sector Economico' options={optionsEconomicSector} selection value={productiveSection} onChange={handleChangeSection} />
-                            </div>
-                            <Form.Input type='number' fluid icon='id card outline' iconPosition='left' placeholder='Cedula del lider* [CC]' value={leaderid} onChange={handleChangeLeaderid} />
-                            <Button primary fluid size='large' loading={isloading} onClick={() => handleSubmit()} >
-                                Registrar Votante
-                            </Button>
+                        </div>
+                        <div style={styles}>
+                            <SelectPicker placeholder={"Sector Economico"} placement="auto"  data={optionsEconomicSector} block value={productiveSection} onChange={handleChangeSection} />
+                        </div>
 
-                        </Segment>
+                        <div style={styles}>
+                            <InputGroup inside>
+                                <InputGroup.Addon>
+                                    <HiOutlineIdentification size={size} className="register__icon" />
+                                </InputGroup.Addon>
+                                <Input type='number' placeholder='Cedula del lider* [CC]' block value={leaderid} onChange={handleChangeLeaderid} />
+                            </InputGroup>
+                        </div>
 
-                    </Form>
-                </Grid.Column>
-            </Grid> */}
+
+                        <Button appearance='primary' block loading={isloading} onClick={() => handleSubmit()} >
+                            Registrar Votante
+                        </Button>
+                    </div>
+                </div>
+            </div>
         </>
     )
 }
@@ -189,3 +252,4 @@ const RegisterForm = () => {
 
 
 export default RegisterForm
+

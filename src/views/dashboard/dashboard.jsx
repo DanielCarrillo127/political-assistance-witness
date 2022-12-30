@@ -11,6 +11,7 @@ const Dashboard = () => {
   //set to global state 
   const { user, handelSession, saveHdl, Handleonclick } = useContext(DataContext);
   const [levelRestrictions, setLevelRestrictions] = useState(0)
+  const [isChecked, setIsChecked] = useState(true)
 
   useEffect( () => {
     handelSession();
@@ -31,8 +32,9 @@ const Dashboard = () => {
 
   //role system (disable) 
   //candidate and admin use everything coor+estadisticas
-  //coordinator H,T,Event,C,T
-  //leader H,T
+  //coordinator Home,Table,Event,Comunication,Witness
+  //leader Home,Table, Witness
+
 
   const SelectionView = () => {
     switch (Handleonclick) {
@@ -49,7 +51,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <input type="checkbox" id="nav__toggle" />
+      <input type="checkbox" id="nav__toggle" checked={isChecked} />
       <div className="sidebar">
         <div className="sidebar__brand">
           <h1> <HiOutlineAtSymbol size={40} />  <span>PoliticApp</span>
@@ -107,8 +109,8 @@ const Dashboard = () => {
 
       <div className="main__content">
         <header>
-          <h2>
-            <label htmlFor="nav__toggle">
+          <h2 onClick={() => setIsChecked(!isChecked)}>
+            <label htmlFor="nav__toggle" >
               <HiOutlineMenu size={30} className="iconHeader" />
             </label>
             Dashboard

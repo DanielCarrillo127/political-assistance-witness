@@ -111,16 +111,16 @@ const Login = () => {
                         <div className="login">
                             <div className="login__field">
 
-                                <HiOutlineIdentification size={19} className="login__icon fas fa-user" />
+                                <HiOutlineIdentification size={19} className="login__icon " />
                                 <input type="text" className="login__input" placeholder="Cedula [cc]" value={username} onChange={handleChangeId} />
                             </div>
                             <div className="login__field">
-                                <HiOutlineLockOpen className="login__icon fas fa-lock" />
+                                <HiOutlineLockOpen className="login__icon" />
                                 <input type="password" className="login__input" placeholder="Contraseña" value={password} onChange={handleChangePass} />
                             </div>
                             <button className="button login__submit" onClick={() => handleSubmit()}>
                                 <span className="button__text">Iniciar Sesión</span>
-                                <HiOutlineChevronRight className="button__icon fas fa-chevron-right" />
+                                <HiOutlineChevronRight className="button__icon" />
                             </button>
                         </div>
                         {/* <div className="company__login">
