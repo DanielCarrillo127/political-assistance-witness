@@ -1,0 +1,21 @@
+.contianer_actions {
+    display: grid;
+    gap: 1rem;
+    grid-auto-flow: column;
+    margin: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(min-content, 1fr));
+}
+
+@media only screen and (max-width: 960px) {
+    .contianer_actions {
+        grid-template-columns: auto;
+    }
+}
+
+
+@media only screen and (max-width: 768px) {
+    .contianer_actions {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+    }
+}

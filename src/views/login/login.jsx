@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { loginApi } from "../../api/request";
+import { loginApi } from "../../api/requestUsers";
 import { DataContext } from '../../context/userContext'
 import "./login.css"
 import { HiOutlineIdentification, HiOutlineLockOpen, HiOutlineChevronRight } from "react-icons/hi";
@@ -24,6 +24,7 @@ const Login = () => {
 
     useEffect(() => {
         logOutUser()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const handleSubmit = async () => {
@@ -118,10 +119,13 @@ const Login = () => {
                                 <HiOutlineLockOpen className="login__icon" />
                                 <input type="password" className="login__input" placeholder="Contraseña" value={password} onChange={handleChangePass} />
                             </div>
+                            {isErrorId ? <>existe un error en tu id</> : <></>}
+                            {isErrorpass ? <>existe un error en tu password</> : <></>}
                             <button className="button login__submit" onClick={() => handleSubmit()}>
                                 <span className="button__text">Iniciar Sesión</span>
                                 <HiOutlineChevronRight className="button__icon" />
                             </button>
+
                         </div>
                         {/* <div className="company__login">
                             <h3>Prod by</h3>

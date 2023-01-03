@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { optionsEconomicSector } from '../../utils/constant';
 import { toast } from "react-toastify";
-import { registerApi } from '../../api/request';
+import { registerApi } from '../../api/requestUsers';
 import { Input, InputGroup, Whisper, Tooltip, SelectPicker, Toggle, Button } from 'rsuite';
 import InfoIcon from '@rsuite/icons/legacy/Info';
 import { HiOutlineIdentification, HiOutlineUserCircle, HiOutlineMinusCircle, HiHashtag, HiOutlineCake, HiOutlineLocationMarker, HiOutlineInboxIn, HiOutlineLibrary } from "react-icons/hi";
