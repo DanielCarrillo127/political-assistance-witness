@@ -148,6 +148,7 @@ header label span {
 .user__wrapper {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .user__wrapper small {
@@ -238,8 +239,15 @@ main {
 @media only screen and (max-width: 768px) {
 
     .sidebar {
-
         left: -100% !important;
+    }
+
+   .sidebar__brand{
+    display: none;
+    }
+
+    .sidebar__menu{
+        margin-top: 120px;
     }
 
     .userName{

@@ -1,39 +1,32 @@
 import { useContext, useEffect, useState } from 'react';
 import './dashboard.css';
+import { Dropdown } from 'rsuite';
+import { useNavigate } from "react-router-dom";
 import { DataContext } from "../../context/userContext";
-import { HiOutlineMenu, HiOutlineHome, HiOutlineDocumentText, HiOutlineChartBar, HiOutlineChatAlt2, HiOutlineCalendar, HiOutlineAtSymbol, HiOutlineInboxIn, HiOutlineLightningBolt } from "react-icons/hi";
+import { HiOutlineMenu, HiOutlineHome, HiOutlineDocumentText, HiOutlineChartBar, HiOutlineChatAlt2, HiOutlineCalendar, HiOutlineAtSymbol, HiOutlineInboxIn, HiOutlineLightningBolt, HiOutlineLogout } from "react-icons/hi";
 // import RegisterForm from '../register/registerForm'
 import HomePage from '../../components/homePage/homePage'
 import FormTablePage from '../../components/formTablePage/formTablePage';
+import EventTablePage from '../../components/eventTablePage/eventTablePage';
+import StatisticsPage from '../../components/statisticsPage/statisticsPage';
+
 
 const Dashboard = () => {
 
+  const navigate = useNavigate();
   //set to global state 
-  const { user, handelSession, saveHdl, Handleonclick } = useContext(DataContext);
-  const [levelRestrictions, setLevelRestrictions] = useState(0)
+  const { user, handelSession, saveHdl, Handleonclick, levelRestrictions, logOutUser } = useContext(DataContext);
+  const Restrictions = levelRestrictions
   const [isChecked, setIsChecked] = useState(true)
 
-  useEffect( () => {
+  useEffect(() => {
     handelSession();
-    setLevel()
-    //not working
-
-  }, []);
-
-  const setLevel = () =>{
-    if (user?.role === 'COORDINATOR') {
-      setLevelRestrictions(2)
-    } else if (user?.role === 'LEADER') {
-      setLevelRestrictions(3)
-    } else { //is admin or candidate
-      setLevelRestrictions(1)
+    let winSize = window.innerWidth;
+    if (winSize < 765) {
+      setIsChecked(!isChecked)
     }
-  }
-
-  //role system (disable) 
-  //candidate and admin use everything coor+estadisticas
-  //coordinator Home,Table,Event,Comunication,Witness
-  //leader Home,Table, Witness
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
 
   const SelectionView = () => {
@@ -42,16 +35,40 @@ const Dashboard = () => {
         return <HomePage />;
       case "formTable":
         return <FormTablePage />;
+      case "eventTable":
+        return <EventTablePage />;
+      case "statisticsPage":
+        return <StatisticsPage />;
       default:
         return <HomePage />;
     }
   };
 
+  const renderUserContainer = (props, ref) => {
+    return (
+      <div className="user__wrapper" {...props} ref={ref}>
+        <div className='iconConteainer'>
+          {user?.name
+            ? `${user?.name
+              .substring(0, 1)
+              .toUpperCase()}${user?.surnames
+                .substring(0, 1)
+                .toUpperCase()}`
+            : "JD"}
+
+        </div>
+        <div className='userName'>
+          <h4>{user?.name + " " + user?.surnames}</h4>
+          <small>Role [{user?.role}]</small>
+        </div>
+      </div>
+    );
+  };
 
 
   return (
     <>
-      <input type="checkbox" id="nav__toggle" checked={isChecked} />
+      <input type="checkbox" id="nav__toggle" checked={isChecked} readOnly />
       <div className="sidebar">
         <div className="sidebar__brand">
           <h1> <HiOutlineAtSymbol size={40} />  <span>PoliticApp</span>
@@ -73,25 +90,25 @@ const Dashboard = () => {
               </div>
             </li>
             <li>
-              <div className={`${levelRestrictions > 1 ? "disabled" : ""} itemMenu`}>
+              <div className={` ${Handleonclick === 'statisticsPage' ? "active" : ""} ${Restrictions > 1 ? "disabled" : ""} itemMenu`} onClick={() => saveHdl('statisticsPage')}>
                 <HiOutlineChartBar size={25} className='icon' />
                 <span>Estadisticas</span>
               </div>
             </li>
             <li>
-              <div className={`${levelRestrictions > 2 ? "disabled" : ""} itemMenu`}>
+              <div className={`${Handleonclick === 'eventTable' ? "active" : ""} ${Restrictions > 2 ? "disabled" : ""} itemMenu`} onClick={() => saveHdl('eventTable')}>
                 <HiOutlineCalendar size={25} className='icon' />
                 <span>Eventos</span>
               </div>
             </li>
             <li>
-              <div className={`${levelRestrictions > 2 ? "disabled" : ""} itemMenu`}>
+              <div className={`${Restrictions > 2 ? "disabled" : ""} itemMenu`}>
                 <HiOutlineChatAlt2 size={25} className='icon' />
                 <span>Comunicaciones</span>
               </div>
             </li>
             <li>
-              <div className={`${levelRestrictions > 2 ? "disabled" : ""} itemMenu`}>
+              <div className={`${Restrictions > 2 ? "disabled" : ""} itemMenu`}>
                 <HiOutlineInboxIn size={25} className='icon' />
                 <span>Testigos Electorales</span>
               </div>
@@ -116,28 +133,21 @@ const Dashboard = () => {
             Dashboard
           </h2>
 
-          <div className="user__wrapper">
-            <div className='iconConteainer'>
-              {user?.name
-                ? `${user?.name
-                  .substring(0, 1)
-                  .toUpperCase()}${user?.surnames
-                    .substring(0, 1)
-                    .toUpperCase()}`
-                : "JD"}
+          <Dropdown renderToggle={renderUserContainer} placement={'bottomEnd'}>
+            <Dropdown.Item disabled>Perfil</Dropdown.Item>
+            <Dropdown.Item disabled>Extra</Dropdown.Item>
+            <Dropdown.Item onClick={() => {
+              logOutUser()
+              navigate("/");
+            }}><HiOutlineLogout size={20} />Cerrar sesión</Dropdown.Item>
+          </Dropdown>
 
-            </div>
-            <div className='userName'>
-              <h4>{user?.name + " " + user?.surnames}</h4>
-              <small>Role [{user?.role}]</small>
-            </div>
-          </div>
-        </header>
+        </header >
 
         <main>
           <SelectionView />
         </main>
-      </div>
+      </div >
     </>
   )
 }

@@ -7,12 +7,12 @@ import { FaRegFileExcel } from "react-icons/fa";
 
 
 //receives as parameters the headers {columns ~ defaultColumns}, the corresponding data as {data}, the prop "activeColumnSort" is a boolean to not/active the sortColumn component
-const TableReusable = (props) => {
+const TableEvents = (props) => {
 
 
     const defaultColumns = props.defaultColumns
     const [data, setData] = useState(props.data);
-
+    const dataKeyLabel = props.dataKey
     const [loading, setLoading] = useState(false);
     const [hasData, setHasData] = useState(false);
     const height = props.heightTable ? props.heightTable : 310
@@ -112,12 +112,24 @@ const TableReusable = (props) => {
         }, 500);
     };
 
+    const handlerNavigation = (key,name) => {
+        props.handlerNav(key,name)
+    }
+
+    const AttendaceCell = ({ rowData, dataKey, ...props }) => (
+        <Cell {...props} style={{ padding: 4 }} dataKey={dataKey}>
+            <p className='detailCell' onClick={() => handlerNavigation(rowData["eventid"], rowData["eventName"])}>
+                {rowData[dataKeyLabel]}
+            </p>
+        </Cell>
+    );
+
     return (
         <div className='table'>
             <hr />
             {/* data len {props.data} */}
             <Whisper speaker={<Tooltip> descargar xlsx</Tooltip>} trigger="hover" placement="top">
-                <button className='button__actions right' ><FaRegFileExcel size={20}/></button>
+                <button className='button__actions right' ><FaRegFileExcel size={20} /></button>
             </Whisper>
 
             <div className='columns-wrapper'>
@@ -181,11 +193,11 @@ const TableReusable = (props) => {
                     onSortColumn={handleSortColumn}
                 >
                     {columns.map(column => {
-                        const { key, label, ...rest } = column;
+                        const { key, label, hasDetail, ...rest } = column;
                         return (
                             <Column {...rest} key={key}>
                                 <HeaderCell style={{ padding: 4, fontWeight: 'bold', color: '#000' }} > {label}</HeaderCell>
-                                <Cell dataKey={key} style={{ padding: 4 }} />
+                                {hasDetail ? <AttendaceCell dataKey={"eventid"} /> : <Cell dataKey={key} style={{ padding: 4 }} />}
                             </Column>
                         );
                     })}
@@ -195,4 +207,4 @@ const TableReusable = (props) => {
         </div>
     )
 }
-export default TableReusable
+export default TableEvents

@@ -6,6 +6,14 @@
     grid-template-columns: repeat(auto-fit, minmax(min-content, 1fr));
 }
 
+.contianer__voter__actions{
+    margin-left:10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-right:10px;
+}
+
 @media only screen and (max-width: 960px) {
     .contianer_actions {
         grid-template-columns: auto;
@@ -17,5 +25,8 @@
     .contianer_actions {
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr 1fr;
+    }
+    .voter__action{
+        flex: 1 0 50px;
     }
 }

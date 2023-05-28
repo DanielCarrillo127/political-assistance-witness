@@ -4,8 +4,12 @@ import { getAllUsersApi, getAllLeadersApi, getAllVotersByLeaderApi, getAllVoters
 import TableReusable from '../table/table'
 import { DataContext } from "../../context/userContext";
 import { toast } from "react-toastify";
+import DeleteVoter from '../modals/deleteVoter/deleteVoter';
+import SetRoleVoter from '../modals/setRoteVoter/setRoleVoter';
 import './formTablePage.css'
 
+
+//to do; STATE to determinate if the user can set roles, and modify list of search
 const FormTablePage = () => {
 
     const { user } = useContext(DataContext);
@@ -212,7 +216,7 @@ const FormTablePage = () => {
                 }
                 break;
             default:
-                
+
                 break;
         }
     }
@@ -242,11 +246,17 @@ const FormTablePage = () => {
         return data
     }
 
+    //handlers to open the different modals
+    const [openDeleteV, setOpenDeleteV] = useState(false);
+    const handleCloseDeleteV = () => setOpenDeleteV(false);
+
+    const [openSetRole, setOpenSetRole] = useState(false);
+    const handleCloseSetRole = () => setOpenSetRole(false);
 
     return (
         <div>
             <div>
-                Bienvenido, encontraras listadas las diferentes acciones asociadsas a los usuarios de la aplicacion.
+                <p style={{padding:'8px'}}>Bienvenido, encontraras listadas las diferentes acciones asociadsas a los usuarios de la aplicacion.</p>
                 <div className="container__component">
                     <div className="container__header">
                         <h2>Sistema de planillas</h2>
@@ -258,6 +268,11 @@ const FormTablePage = () => {
                             <button className='button__actions' onClick={() => handlerSearch()}>Buscar</button>
                         </div>
                         <div>
+                            <div className='contianer__voter__actions'>
+                                <button className='button__actions voter__action' onClick={() => setOpenSetRole(true)} > Administrar Roles</button>
+                                <button className='button__actions voter__action' onClick={() => setOpenDeleteV(true)} > Eliminar Votante</button>
+                                <button className='button__actions voter__action' disabled> Actualizar Votante</button>
+                            </div>
                             <div>
                                 <TableReusable defaultColumns={defaultColumns} data={data} activeColumnSort={true} pageLimit={25} />
                             </div>
@@ -265,6 +280,8 @@ const FormTablePage = () => {
                     </div>
                 </div>
             </div>
+            <DeleteVoter open={openDeleteV} handleClose={handleCloseDeleteV}/>
+            <SetRoleVoter open={openSetRole} handleClose={handleCloseSetRole}/>
         </div>
     )
 }
