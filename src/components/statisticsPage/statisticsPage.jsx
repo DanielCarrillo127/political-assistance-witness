@@ -1,8 +1,8 @@
 import React from 'react'
 import './statisticsPage.css'
-import CalendarComponent from '../statistics/calendar'
-import { dataCalendar, dataPieChart } from '../statistics/mockData'
-import PieChartComponent from '../statistics/pieChart'
+import CalendarComponent from './statistics/calendar'
+import { dataCalendar, dataPieChart } from './statistics/mockData'
+import PieChartComponent from './statistics/pieChart'
 const StatisticsPage = () => {
 
     return (
@@ -19,6 +19,7 @@ const StatisticsPage = () => {
             <div className="statistics__Container-3">
                 <div className="container__component">
                     <div style={{ height: 200, width: "100%" }} className='center'>
+                        <h4 style={{ padding: "10px" }}>Votantes registrados por lider</h4>
                         {/* <PieChartComponent data={dataPieChart} /> */}
                     </div>
                 </div>

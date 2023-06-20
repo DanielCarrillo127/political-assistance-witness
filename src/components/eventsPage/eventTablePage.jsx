@@ -1,10 +1,15 @@
 import React, { useState, useEffect, useContext } from 'react'
 import './eventTablePage.css'
-import TableEvents from '../eventTable/tableEvents'
+import TableEvents from './eventTable/tableEvents'
 import { getAllEventsApi } from '../../api/requestEvents'
 import { DataContext } from '../../context/userContext'
 import TableReusable from '../table/table'
 import { getAllAttendanceApi } from '../../api/requestAttendance'
+
+import CreateEvent from './modals/createEvent/createEvent'
+import DeleteEvent from './modals/deleteEvent/deleteEvent'
+import CreateAttendance from './modals/registerAttendance/createAttendance'
+import DeleteAttendance from './modals/deleteAttendance/deleteAttendance'
 
 const EventTablePage = () => {
 
@@ -16,7 +21,7 @@ const EventTablePage = () => {
       label: 'Id Evento',
       value: 'eventid',
       sortable: true,
-      flexGrow: 1,
+      width: 90,
       hasDetail: true,
     },
     {
@@ -31,16 +36,14 @@ const EventTablePage = () => {
       key: 'description',
       label: 'Descripción',
       value: 'description',
-      sortable: true,
       fullText: true,
-      flexGrow: 2
+      flexGrow: 3
     },
     {
       key: 'address',
       label: 'Direccion',
       value: 'address',
       fullText: true,
-      sortable: true,
       flexGrow: 1
     },
     {
@@ -49,14 +52,13 @@ const EventTablePage = () => {
       value: 'dateDevelopment',
       fullText: true,
       sortable: true,
-      flexGrow: 2
+      width: 200
     },
     {
       key: 'transport',
       label: 'Req Transporte',
       value: 'transport',
       fullText: true,
-      sortable: true,
       width: 50
     },
     {
@@ -64,7 +66,6 @@ const EventTablePage = () => {
       label: 'Req Refrigerios',
       value: 'refreshments',
       fullText: true,
-      sortable: true,
       width: 50
     },
     {
@@ -80,12 +81,14 @@ const EventTablePage = () => {
       value: 'dateCreated',
       fullText: true,
       sortable: true,
+      flexGrow: 1
     },
 
   ];
 
   const [attendanceData, setAttendanceData] = useState([])
   const [attendanceName, setAttendanceName] = useState("")
+  const [eventid, setEventid] = useState("")
   const defaultColumnsAttendance = [
 
     {
@@ -130,6 +133,19 @@ const EventTablePage = () => {
     },
   ];
 
+
+  const [openCreateEvent, setOpenCreateEvent] = useState(false);
+  const handleCloseCreateEvent = () => setOpenCreateEvent(false);
+
+  const [openDeleteEvent, setOpenDeleteEvent] = useState(false);
+  const handleCloseDeleteEvent = () => setOpenDeleteEvent(false);
+
+  const [openCreateAtt, setOpenCreateAtt] = useState(false);
+  const handleCloseCreateAtt = () => setOpenCreateAtt(false);
+
+  const [openDeleteAtt, setOpenDeleteAtt] = useState(false);
+  const handleCloseDeleteAtt = () => setOpenDeleteAtt(false);
+
   async function fetchData() {
 
     const resAllData = await getAllEventsApi(user?.cedula);
@@ -164,6 +180,7 @@ const EventTablePage = () => {
     if (eventid) {
       fetchAttendanceData(eventid)
       setAttendanceName(name)
+      setEventid(eventid)
     }
   }
 
@@ -178,8 +195,8 @@ const EventTablePage = () => {
           <div style={{ marginTop: "20px" }}>
             <div>
               <div className='contianer__voter__actions'>
-                <button className='button__actions voter__action' > Crear nuevo evento</button>
-                <button className='button__actions voter__action' > Eliminar evento</button>
+                <button className='button__actions voter__action' onClick={() => setOpenCreateEvent(true)} > Crear nuevo evento</button>
+                <button className='button__actions voter__action' onClick={() => setOpenDeleteEvent(true)} > Eliminar evento</button>
                 <button className='button__actions voter__action' disabled> Actualizar Evento</button>
               </div>
               <div>
@@ -189,7 +206,7 @@ const EventTablePage = () => {
           </div>
         </div>
 
-        {attendanceData.length > 0 ? <>
+        {attendanceName !== "" ? <>
           <div className="container__component">
             <div className="container__header">
               <h2>Registro de asistencia ~{attendanceName}</h2>
@@ -198,8 +215,8 @@ const EventTablePage = () => {
             <div style={{ marginTop: "20px" }}>
               <div>
                 <div className='contianer__voter__actions'>
-                  <button className='button__actions voter__action'> Registrar usuario</button>
-                  <button className='button__actions voter__action'> Eliminar usuario</button>
+                  <button className='button__actions voter__action' onClick={() => setOpenCreateAtt(true)}> Registrar usuario</button>
+                  <button className='button__actions voter__action' onClick={() => setOpenDeleteAtt(true)}> Eliminar usuario</button>
                 </div>
                 <div>
                   <TableReusable defaultColumns={defaultColumnsAttendance} data={attendanceData} activeColumnSort={true} pageLimit={25} />
@@ -209,6 +226,10 @@ const EventTablePage = () => {
           </div>
         </> : null}
       </div>
+      <CreateEvent open={openCreateEvent} handleClose={handleCloseCreateEvent} fetchData={fetchData} />
+      <DeleteEvent open={openDeleteEvent} handleClose={handleCloseDeleteEvent} fetchData={fetchData} events={data} />
+      <CreateAttendance open={openCreateAtt} handleClose={handleCloseCreateAtt} fetchData={() => fetchAttendanceData(eventid)} eventid={eventid} />
+      <DeleteAttendance open={openDeleteAtt} handleClose={handleCloseDeleteAtt} fetchData={() => fetchAttendanceData(eventid)} eventid={eventid} />
     </div>
   )
 }

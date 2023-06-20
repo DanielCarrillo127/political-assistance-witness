@@ -3,8 +3,7 @@ import { useState } from 'react'
 import { Table, TagPicker, Pagination, Input, InputGroup, SelectPicker, Whisper, Tooltip, } from 'rsuite';
 import './table.css'
 import { FaRegFileExcel } from "react-icons/fa";
-
-
+import ExportToXlsx from '../../../utils/exportToXlsx';
 
 //receives as parameters the headers {columns ~ defaultColumns}, the corresponding data as {data}, the prop "activeColumnSort" is a boolean to not/active the sortColumn component
 const TableEvents = (props) => {
@@ -103,6 +102,20 @@ const TableEvents = (props) => {
         return paginationData()
     };
 
+    const handleExportData = async () => {
+        let dataExport = getData()
+        //when filter is apply get data filter, if not all data, 
+        if (filterColumn === "") {
+            dataExport = props.data
+        } else {
+            dataExport = getData()
+            if (data.length > limit) {
+                alert("Al exportar información filtrada el archivo resultante contendra la informacion de la pagina inicial, para exportar toda la información filtrada ampliar la paginación.");
+            }
+        }
+        ExportToXlsx('ExportEventos', dataExport, columns)
+    }
+
     const handleSortColumn = (sortColumn, sortType) => {
         setLoading(true);
         setTimeout(() => {
@@ -129,7 +142,7 @@ const TableEvents = (props) => {
             <hr />
             {/* data len {props.data} */}
             <Whisper speaker={<Tooltip> descargar xlsx</Tooltip>} trigger="hover" placement="top">
-                <button className='button__actions right' ><FaRegFileExcel size={20} /></button>
+                <button className='button__actions right' onClick={handleExportData}><FaRegFileExcel className='exportIcon' size={20} /></button>
             </Whisper>
 
             <div className='columns-wrapper'>

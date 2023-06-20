@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { optionsEconomicSector } from '../../utils/constant';
 import { toast } from "react-toastify";
 import { registerApi } from '../../api/requestUsers';
@@ -9,6 +9,14 @@ import './register.css'
 
 
 const RegisterForm = () => {
+
+    useEffect(() => {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const leaderid = urlParams.get('leaderid')
+        if(leaderid) setLeaderid(leaderid)
+    }, [])
+
 
     const [isloading, setIsloading] = useState(false);
     const [name, setName] = useState("");
@@ -109,18 +117,18 @@ const RegisterForm = () => {
 
                 }
 
-                    //clear inputs
-                    setName("")
-                    setSurnames("")
-                    setCedula("")
-                    setPhoneNumber("")
-                    setSex("")
-                    setAge("")
-                    setAddress("")
-                    setVotingBooth("")
-                    setTable("")
-                    setLeaderid("")
-                    setProductiveSection("")
+                //clear inputs
+                setName("")
+                setSurnames("")
+                setCedula("")
+                setPhoneNumber("")
+                setSex("")
+                setAge("")
+                setAddress("")
+                setVotingBooth("")
+                setTable("")
+                setLeaderid("")
+                setProductiveSection("")
             } else {
                 toast.warn(`Ingrese una Cedula Valida`, {
                     position: "top-right",
@@ -152,7 +160,7 @@ const RegisterForm = () => {
                                 <InputGroup.Addon>
                                     <HiOutlineUserCircle size={size} className="register__icon" />
                                 </InputGroup.Addon>
-                                <Input placeholder='Nombre*' block value={name} onChange={handleChangeName} />
+                                <Input placeholder='Nombre*' value={name} onChange={handleChangeName} />
                             </InputGroup>
                         </div>
                         <div style={styles}>
@@ -160,7 +168,7 @@ const RegisterForm = () => {
                                 <InputGroup.Addon>
                                     <HiOutlineMinusCircle size={size} className="register__icon" />
                                 </InputGroup.Addon>
-                                <Input placeholder='Apellidos*' block value={surnames} onChange={handleChangeSurname} />
+                                <Input placeholder='Apellidos*' value={surnames} onChange={handleChangeSurname} />
                             </InputGroup>
                         </div>
                         <div style={styles}>
@@ -168,7 +176,7 @@ const RegisterForm = () => {
                                 <InputGroup.Addon>
                                     <HiOutlineIdentification size={size} className="register__icon" />
                                 </InputGroup.Addon>
-                                <Input placeholder='Cedula* [CC]' block value={cedula} onChange={handleChangeCedula} />
+                                <Input placeholder='Cedula* [CC]' value={cedula} onChange={handleChangeCedula} />
                                 <InputGroup.Addon>
                                     <Whisper placement="right" speaker={<Tooltip> Id sin espacios o separadores especiales ,-.</Tooltip>}>
                                         <InfoIcon />
@@ -181,7 +189,7 @@ const RegisterForm = () => {
                                 <InputGroup.Addon>
                                     <HiHashtag size={size} className="register__icon" />
                                 </InputGroup.Addon>
-                                <Input type='number' placeholder='Tel*' block value={phoneNumber} onChange={handleChangePhoneNumber} />
+                                <Input type='number' placeholder='Tel*' value={phoneNumber} onChange={handleChangePhoneNumber} />
                             </InputGroup>
                         </div>
 
@@ -193,7 +201,7 @@ const RegisterForm = () => {
                                 <InputGroup.Addon>
                                     <HiOutlineCake size={size} className="register__icon" />
                                 </InputGroup.Addon>
-                                <Input type='number' placeholder='Edad*' block value={age} onChange={handleChangeAge} />
+                                <Input type='number' placeholder='Edad*' value={age} onChange={handleChangeAge} />
                             </InputGroup>
                         </div>
                         <div style={styles}>
@@ -201,7 +209,7 @@ const RegisterForm = () => {
                                 <InputGroup.Addon>
                                     <HiOutlineLocationMarker size={size} className="register__icon" />
                                 </InputGroup.Addon>
-                                <Input type='text' placeholder='Dirección*' block value={address} onChange={handleChangeAddress} />
+                                <Input type='text' placeholder='Dirección*' value={address} onChange={handleChangeAddress} />
                             </InputGroup>
                         </div>
                         <div style={{ padding: '1em' }}>
@@ -209,24 +217,24 @@ const RegisterForm = () => {
                                 Ingrese solo si conoce la localidad y la mesa exacta de votación.
                             </div>
                             <div className='grid__container'>
-                                <Toggle style={{marginTop:5}} defaultChecked={checkPlace} onChange={(e) => setCheckPlace(e)} />
-                                <InputGroup inside style={{marginBottom:10}}>
+                                <Toggle style={{ marginTop: 5 }} defaultChecked={checkPlace} onChange={(e) => setCheckPlace(e)} />
+                                <InputGroup inside style={{ marginBottom: 10 }}>
                                     <InputGroup.Addon>
                                         <HiOutlineLibrary size={size} className="register__icon" />
                                     </InputGroup.Addon>
-                                    <Input disabled={!checkPlace} type='text' placeholder='Puesto de Votación' block value={votingBooth} onChange={handleChangeVotingBooth} />
+                                    <Input disabled={!checkPlace} type='text' placeholder='Puesto de Votación' value={votingBooth} onChange={handleChangeVotingBooth} />
                                 </InputGroup>
-                                <Toggle style={{marginTop:5}} defaultChecked={checkTable} onChange={(e) => setCheckTable(e)} />
+                                <Toggle style={{ marginTop: 5 }} defaultChecked={checkTable} onChange={(e) => setCheckTable(e)} />
                                 <InputGroup inside>
                                     <InputGroup.Addon>
                                         <HiOutlineInboxIn size={size} className="register__icon" />
                                     </InputGroup.Addon>
-                                    <Input disabled={!checkTable} type='text' placeholder='Mesa de Votación' block value={table} onChange={handleChangeTable} />
+                                    <Input disabled={!checkTable} type='text' placeholder='Mesa de Votación' value={table} onChange={handleChangeTable} />
                                 </InputGroup>
                             </div>
                         </div>
                         <div style={styles}>
-                            <SelectPicker placeholder={"Sector Economico"} placement="auto"  data={optionsEconomicSector} block value={productiveSection} onChange={handleChangeSection} />
+                            <SelectPicker placeholder={"Sector Economico"} placement="auto" data={optionsEconomicSector} block value={productiveSection} onChange={handleChangeSection} />
                         </div>
 
                         <div style={styles}>
@@ -234,7 +242,7 @@ const RegisterForm = () => {
                                 <InputGroup.Addon>
                                     <HiOutlineIdentification size={size} className="register__icon" />
                                 </InputGroup.Addon>
-                                <Input type='number' placeholder='Cedula del lider* [CC]' block value={leaderid} onChange={handleChangeLeaderid} />
+                                <Input type='number' placeholder='Cedula del lider* [CC]' value={leaderid} onChange={handleChangeLeaderid} />
                             </InputGroup>
                         </div>
 

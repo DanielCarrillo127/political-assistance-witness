@@ -1,8 +1,8 @@
 import React, { useContext,useState } from 'react'
-import ModalLayout from '../../../layouts/modal/modal'
-import { setRoleApi } from '../../../api/requestUsers';
+import ModalLayout from '../../../../layouts/modal/modal'
+import { setRoleApi } from '../../../../api/requestUsers';
 import { Input, SelectPicker } from 'rsuite';
-import { DataContext } from "../../../context/userContext";
+import { DataContext } from "../../../../context/userContext";
 import { toast } from "react-toastify";
 
 const SetRoleVoter = (props) => {

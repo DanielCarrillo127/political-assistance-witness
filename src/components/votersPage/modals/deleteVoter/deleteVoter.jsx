@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import ModalLayout from '../../../layouts/modal/modal'
-import { deleteUserApi } from '../../../api/requestUsers';
+import ModalLayout from '../../../../layouts/modal/modal'
+import { deleteUserApi } from '../../../../api/requestUsers';
 import { Input } from 'rsuite';
 import { toast } from "react-toastify";
 

@@ -6,10 +6,12 @@ import { DataContext } from "../../context/userContext";
 import { HiOutlineMenu, HiOutlineHome, HiOutlineDocumentText, HiOutlineChartBar, HiOutlineChatAlt2, HiOutlineCalendar, HiOutlineAtSymbol, HiOutlineInboxIn, HiOutlineLightningBolt, HiOutlineLogout } from "react-icons/hi";
 // import RegisterForm from '../register/registerForm'
 import HomePage from '../../components/homePage/homePage'
-import FormTablePage from '../../components/formTablePage/formTablePage';
-import EventTablePage from '../../components/eventTablePage/eventTablePage';
+import FormTablePage from '../../components/votersPage/formTablePage';
+import EventTablePage from '../../components/eventsPage/eventTablePage';
 import StatisticsPage from '../../components/statisticsPage/statisticsPage';
+import WitnessPage from '../../components/witnessPage/witnessPage';
 
+import ProfileModal from '../../components/profileModal/profileModal';
 
 const Dashboard = () => {
 
@@ -28,6 +30,10 @@ const Dashboard = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const [openProfile, setOpenProfile] = useState(false);
+  const handleCloseProfile = () => setOpenProfile(false);
+
+
 
   const SelectionView = () => {
     switch (Handleonclick) {
@@ -39,6 +45,8 @@ const Dashboard = () => {
         return <EventTablePage />;
       case "statisticsPage":
         return <StatisticsPage />;
+      case "witnessPage":
+        return <WitnessPage />;
       default:
         return <HomePage />;
     }
@@ -108,7 +116,7 @@ const Dashboard = () => {
               </div>
             </li>
             <li>
-              <div className={`${Restrictions > 2 ? "disabled" : ""} itemMenu`}>
+              <div className={`${Handleonclick === 'witnessPage' ? "active" : ""}  ${Restrictions > 2 ? "disabled" : ""} itemMenu`} onClick={() => saveHdl('witnessPage')}>
                 <HiOutlineInboxIn size={25} className='icon' />
                 <span>Testigos Electorales</span>
               </div>
@@ -134,7 +142,7 @@ const Dashboard = () => {
           </h2>
 
           <Dropdown renderToggle={renderUserContainer} placement={'bottomEnd'}>
-            <Dropdown.Item disabled>Perfil</Dropdown.Item>
+            <Dropdown.Item onClick={() => setOpenProfile(true)}>Perfil</Dropdown.Item>
             <Dropdown.Item disabled>Extra</Dropdown.Item>
             <Dropdown.Item onClick={() => {
               logOutUser()
@@ -147,7 +155,9 @@ const Dashboard = () => {
         <main>
           <SelectionView />
         </main>
-      </div >
+        <ProfileModal open={openProfile} handleClose={handleCloseProfile}/>
+
+      </div>
     </>
   )
 }

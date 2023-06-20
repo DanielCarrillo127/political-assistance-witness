@@ -26,6 +26,9 @@
     float: right;
 }
 
+.exportIcon{
+    margin-top: 5px;
+}
 
 @media only screen and (max-width: 960px) {
     .columns-wrapper {

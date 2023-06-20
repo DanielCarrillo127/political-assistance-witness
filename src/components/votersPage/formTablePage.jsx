@@ -4,8 +4,8 @@ import { getAllUsersApi, getAllLeadersApi, getAllVotersByLeaderApi, getAllVoters
 import TableReusable from '../table/table'
 import { DataContext } from "../../context/userContext";
 import { toast } from "react-toastify";
-import DeleteVoter from '../modals/deleteVoter/deleteVoter';
-import SetRoleVoter from '../modals/setRoteVoter/setRoleVoter';
+import DeleteVoter from './modals/deleteVoter/deleteVoter';
+import SetRoleVoter from './modals/setRoteVoter/setRoleVoter';
 import './formTablePage.css'
 
 

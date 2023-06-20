@@ -1,7 +1,7 @@
 import React from 'react'
 import { ResponsivePie } from 'nivo/lib/components/charts/pie'
 
-const PieChart = ({ data /* see data tab */ }) => (
+const PieChart = ({ data }) => (
     <ResponsivePie
         data={data}
         margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
