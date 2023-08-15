@@ -17,7 +17,7 @@ const ProfileModal = (props) => {
                     <div className="ContainerWidget">
                         <div className="ProfileBox">
                             <div className="LeftContainer">
-                                <div className="verticalCenter">
+                                <div className="">
                                     <div className="IconContainer">
                                         {user?.name
                                             ? `${user?.name
@@ -84,7 +84,7 @@ const ProfileModal = (props) => {
                                         </div>
                                     </div>
 
-                                    <div style={{width: "100%"}} className="ContainerInformation">
+                                    <div style={{ width: "100%" }} className="ContainerInformation">
                                         <div className='ContainerTitle'>
                                             <h5 className="TitleInformation">Link Registro</h5>
 

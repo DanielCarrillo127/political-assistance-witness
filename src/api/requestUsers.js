@@ -148,3 +148,17 @@ export const updateUserApi = async (user) => {
     return error;
   }
 };
+
+export const getCountData = async (userCedula) => {
+  try {
+    const req = await axios.post(
+      `${process.env.REACT_APP_API_URL}/stats`,
+      { "userCedula": userCedula },
+      { headers: { 'authorization': `${localStorage.getItem('TOKEN')}` } }
+    );
+    return req;
+
+  } catch (error) {
+    return error;
+  }
+};

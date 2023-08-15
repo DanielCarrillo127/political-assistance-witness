@@ -77,6 +77,7 @@
 .sidebar__menu .disabled  {
     color: var(--text-grey);
     cursor: not-allowed;
+    pointer-events:none;
 }
 
 #nav__toggle:checked~.main__content {

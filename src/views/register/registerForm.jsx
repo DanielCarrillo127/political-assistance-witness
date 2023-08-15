@@ -14,7 +14,10 @@ const RegisterForm = () => {
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const leaderid = urlParams.get('leaderid')
-        if(leaderid) setLeaderid(leaderid)
+        if(leaderid) {
+            setIsCustomLink(true)
+            setLeaderid(leaderid)
+        }
     }, [])
 
 
@@ -29,6 +32,7 @@ const RegisterForm = () => {
     const [votingBooth, setVotingBooth] = useState("");
     const [table, setTable] = useState("");
     const [leaderid, setLeaderid] = useState("");
+    const [isCustomLink, setIsCustomLink] = useState(false);
     const [productiveSection, setProductiveSection] = useState("");
 
     const [checkPlace, setCheckPlace] = useState(false);
@@ -112,23 +116,31 @@ const RegisterForm = () => {
                             draggable: true,
                             progress: undefined,
                         });
+                    } else if (req.response.status === 404) {
+                        toast.warn(`${req.response.data.message}`, {
+                            position: "top-right",
+                            autoClose: 3000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: false,
+                            draggable: true,
+                            progress: undefined,
+                        });
                     }
                     setIsloading(false)
-
                 }
-
                 //clear inputs
-                setName("")
-                setSurnames("")
-                setCedula("")
-                setPhoneNumber("")
-                setSex("")
-                setAge("")
-                setAddress("")
-                setVotingBooth("")
-                setTable("")
-                setLeaderid("")
-                setProductiveSection("")
+                // setName("")
+                // setSurnames("")
+                // setCedula("")
+                // setPhoneNumber("")
+                // setSex("")
+                // setAge("")
+                // setAddress("")
+                // setVotingBooth("")
+                // setTable("")
+                // setLeaderid("")
+                // setProductiveSection("")
             } else {
                 toast.warn(`Ingrese una Cedula Valida`, {
                     position: "top-right",
@@ -176,7 +188,7 @@ const RegisterForm = () => {
                                 <InputGroup.Addon>
                                     <HiOutlineIdentification size={size} className="register__icon" />
                                 </InputGroup.Addon>
-                                <Input placeholder='Cedula* [CC]' value={cedula} onChange={handleChangeCedula} />
+                                <Input type='number' placeholder='Cedula* [CC]' value={cedula} onChange={handleChangeCedula} />
                                 <InputGroup.Addon>
                                     <Whisper placement="right" speaker={<Tooltip> Id sin espacios o separadores especiales ,-.</Tooltip>}>
                                         <InfoIcon />
@@ -192,7 +204,6 @@ const RegisterForm = () => {
                                 <Input type='number' placeholder='Tel*' value={phoneNumber} onChange={handleChangePhoneNumber} />
                             </InputGroup>
                         </div>
-
                         <div style={styles}>
                             <SelectPicker placeholder="Sexo*" data={optionSex} searchable={false} block value={sex} onChange={handleChangeSex} />
                         </div>
@@ -242,7 +253,7 @@ const RegisterForm = () => {
                                 <InputGroup.Addon>
                                     <HiOutlineIdentification size={size} className="register__icon" />
                                 </InputGroup.Addon>
-                                <Input type='number' placeholder='Cedula del lider* [CC]' value={leaderid} onChange={handleChangeLeaderid} />
+                                <Input type='number' placeholder='Cedula del lider* [CC]' disabled={isCustomLink}  value={leaderid} onChange={handleChangeLeaderid} />
                             </InputGroup>
                         </div>
 

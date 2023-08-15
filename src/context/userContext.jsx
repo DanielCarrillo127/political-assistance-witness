@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 
 export const DataContext = React.createContext();
@@ -13,26 +13,26 @@ export const UserContext = ({ children }) => {
   //coordinator Home,Table,Event,Comunication,Witness
   //leader Home,Table, Witness
   const levelSystem = (info) => {
-    console.log(info.role)
     if (info.role === 'COORDINATOR') {
-      console.log('entro c')
       setLevelRestrictions(2)
     } else if (info.role === 'LEADER') {
-      console.log('entro l')
       setLevelRestrictions(3)
     } else { //is admin or candidate
       setLevelRestrictions(1)
     }
-    console.log(levelRestrictions)
-    
     window.sessionStorage.setItem("LvlRestrictions", levelRestrictions);
   }
 
+  useEffect(() => {
+    levelSystem(user);
+    // eslint-disable-next-line
+  }, [user])
+  
   const saveUser = async (token, info) => {
     window.localStorage.setItem("TOKEN", token);
     window.sessionStorage.setItem("USER", JSON.stringify(info));
     setUser(info);
-    levelSystem(info);
+    // levelSystem(info);
   };
 
   const saveHdl = async (hdl) => {

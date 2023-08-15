@@ -3,7 +3,7 @@ import './dashboard.css';
 import { Dropdown } from 'rsuite';
 import { useNavigate } from "react-router-dom";
 import { DataContext } from "../../context/userContext";
-import { HiOutlineMenu, HiOutlineHome, HiOutlineDocumentText, HiOutlineChartBar, HiOutlineChatAlt2, HiOutlineCalendar, HiOutlineAtSymbol, HiOutlineInboxIn, HiOutlineLightningBolt, HiOutlineLogout } from "react-icons/hi";
+import { HiOutlineMenu, HiOutlineHome, HiOutlineDocumentText, HiOutlineChartBar, HiOutlineChatAlt2, HiOutlineCalendar, HiOutlineAtSymbol, HiOutlineInboxIn, HiOutlineLightningBolt } from "react-icons/hi";
 // import RegisterForm from '../register/registerForm'
 import HomePage from '../../components/homePage/homePage'
 import FormTablePage from '../../components/votersPage/formTablePage';
@@ -98,7 +98,7 @@ const Dashboard = () => {
               </div>
             </li>
             <li>
-              <div className={` ${Handleonclick === 'statisticsPage' ? "active" : ""} ${Restrictions > 1 ? "disabled" : ""} itemMenu`} onClick={() => saveHdl('statisticsPage')}>
+              <div className={` ${Handleonclick === 'statisticsPage' ? "active" : ""} ${Restrictions > 1 ? "disabled" : ""} disabled itemMenu`} onClick={() => saveHdl('statisticsPage')}>
                 <HiOutlineChartBar size={25} className='icon' />
                 <span>Estadisticas</span>
               </div>
@@ -110,13 +110,13 @@ const Dashboard = () => {
               </div>
             </li>
             <li>
-              <div className={`${Restrictions > 2 ? "disabled" : ""} itemMenu`}>
+              <div className={`${Restrictions > 2 ? "disabled" : ""} disabled itemMenu`}>
                 <HiOutlineChatAlt2 size={25} className='icon' />
                 <span>Comunicaciones</span>
               </div>
             </li>
             <li>
-              <div className={`${Handleonclick === 'witnessPage' ? "active" : ""}  ${Restrictions > 2 ? "disabled" : ""} itemMenu`} onClick={() => saveHdl('witnessPage')}>
+              <div className={`${Handleonclick === 'witnessPage' ? "active" : ""}  ${Restrictions > 2 ? "disabled" : ""} disabled itemMenu`} onClick={() => saveHdl('witnessPage')}>
                 <HiOutlineInboxIn size={25} className='icon' />
                 <span>Testigos Electorales</span>
               </div>
@@ -147,7 +147,7 @@ const Dashboard = () => {
             <Dropdown.Item onClick={() => {
               logOutUser()
               navigate("/");
-            }}><HiOutlineLogout size={20} />Cerrar sesión</Dropdown.Item>
+            }}>Cerrar sesión</Dropdown.Item>
           </Dropdown>
 
         </header >
@@ -155,7 +155,7 @@ const Dashboard = () => {
         <main>
           <SelectionView />
         </main>
-        <ProfileModal open={openProfile} handleClose={handleCloseProfile}/>
+        <ProfileModal open={openProfile} handleClose={handleCloseProfile} />
 
       </div>
     </>

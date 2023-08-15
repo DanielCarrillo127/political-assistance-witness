@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Input, SelectPicker } from 'rsuite';
 import { getAllUsersApi, getAllLeadersApi, getAllVotersByLeaderApi, getAllVotersByCoordinatorApi, getAllCoordinatorsApi, getAllLeadersByCoordinatorsApi } from '../../api/requestUsers';
 import TableReusable from '../table/table'
@@ -12,7 +12,8 @@ import './formTablePage.css'
 //to do; STATE to determinate if the user can set roles, and modify list of search
 const FormTablePage = () => {
 
-    const { user } = useContext(DataContext);
+    const { user, levelRestrictions } = useContext(DataContext);
+    const Restrictions = levelRestrictions
 
     const [data, setData] = useState([])
     const [searchValue, setSearchValue] = useState("")
@@ -21,6 +22,19 @@ const FormTablePage = () => {
 
     const handleChangeSearch = (e) => { setSearchValue(e); if (e === '1' || e === '4' || e === '5') { setIsActiveInput(false) } else { setIsActiveInput(true) } }
     const handleChangeIdSearch = (e) => { setIdSearch(e) }
+
+    const [disabledItemsValues, setDisabledItemsValues] = useState([])
+
+    useEffect(() => {
+        if (Restrictions === 2) {//coordinador
+            setDisabledItemsValues(['1', '4', '5'])
+        } else if (Restrictions === 3) {//leader
+            setDisabledItemsValues(['1', '2', '4', '5', '6'])
+        } else {//super admin or candidate
+            setDisabledItemsValues([])
+        }
+    }, [Restrictions])
+
 
     const defaultColumns = [
         {
@@ -256,14 +270,14 @@ const FormTablePage = () => {
     return (
         <div>
             <div>
-                <p style={{padding:'8px'}}>Bienvenido, encontraras listadas las diferentes acciones asociadsas a los usuarios de la aplicacion.</p>
+                <p style={{ padding: '8px' }}>Bienvenido, encontraras listadas las diferentes acciones asociadsas a los usuarios de la aplicacion.</p>
                 <div className="container__component">
                     <div className="container__header">
                         <h2>Sistema de planillas</h2>
                     </div>
                     <div>
                         <div className='contianer_actions'>
-                            <SelectPicker data={optionSearch} onChange={handleChangeSearch} placeholder='Seleccione el tipo de busqueda' />
+                            <SelectPicker disabledItemValues={disabledItemsValues} data={optionSearch} onChange={handleChangeSearch} placeholder='Seleccione el tipo de busqueda' />
                             <Input type='number' placeholder='ingrese la cedula [CC]' disabled={!isActiveInput} value={idSearch} onChange={handleChangeIdSearch} />
                             <button className='button__actions' onClick={() => handlerSearch()}>Buscar</button>
                         </div>
@@ -280,8 +294,8 @@ const FormTablePage = () => {
                     </div>
                 </div>
             </div>
-            <DeleteVoter open={openDeleteV} handleClose={handleCloseDeleteV}/>
-            <SetRoleVoter open={openSetRole} handleClose={handleCloseSetRole}/>
+            <DeleteVoter open={openDeleteV} handleClose={handleCloseDeleteV} />
+            <SetRoleVoter open={openSetRole} handleClose={handleCloseSetRole} />
         </div>
     )
 }
