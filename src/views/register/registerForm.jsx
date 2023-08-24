@@ -163,7 +163,7 @@ const RegisterForm = () => {
                 <div className='container__component'>
                     <div>
                         <h4 className='form__title'>
-                            Registro En Planilla
+                            Registro de Votantes
                         </h4>
                     </div>
                     <div style={styles} >
