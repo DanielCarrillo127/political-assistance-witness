@@ -66,7 +66,7 @@ const Dashboard = () => {
 
         </div>
         <div className='userName'>
-          <h4>{user?.name + " " + user?.surnames}</h4>
+          <h5 style={{fontSize: '16px'}}>{user?.name + " " + user?.surnames}</h5>
           <small>Role [{user?.role}]</small>
         </div>
       </div>

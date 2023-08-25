@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
-import { optionsEconomicSector } from '../../utils/constant';
+import { optionsEconomicSector, votingBoothVpar } from '../../utils/constant';
 import { toast } from "react-toastify";
 import { registerApi } from '../../api/requestUsers';
 import { Input, InputGroup, Whisper, Tooltip, SelectPicker, Toggle, Button } from 'rsuite';
 import InfoIcon from '@rsuite/icons/legacy/Info';
-import { HiOutlineIdentification, HiOutlineUserCircle, HiOutlineMinusCircle, HiHashtag, HiOutlineCake, HiOutlineLocationMarker, HiOutlineInboxIn, HiOutlineLibrary } from "react-icons/hi";
+import { HiOutlineIdentification, HiOutlineUserCircle, HiOutlineMinusCircle, HiHashtag, HiOutlineCake, HiOutlineLocationMarker, HiOutlineInboxIn } from "react-icons/hi";
 import './register.css'
 
 
@@ -19,6 +19,12 @@ const RegisterForm = () => {
             setLeaderid(leaderid)
         }
     }, [])
+
+    const [votingBoothOptions, setVotingBoothOptions] = useState(
+        votingBoothVpar.map((place, index) => {
+            return Object.assign({}, {key: index, label: `${place?.puesto}`, value: place?.puesto, }) //(${place?.dirección})
+        })
+    )
 
 
     const [isloading, setIsloading] = useState(false);
@@ -223,18 +229,13 @@ const RegisterForm = () => {
                                 <Input type='text' placeholder='Dirección*' value={address} onChange={handleChangeAddress} />
                             </InputGroup>
                         </div>
-                        <div style={{ padding: '1em' }}>
-                            <div style={{ textAlign: 'left', color: 'rgba(34,36,38,.58)' }}>
+                        <div style={{ padding: '0.5em' }}>
+                            <div style={{ textAlign: 'left', padding: '0.5em',color: 'rgba(34,36,38,.58)' }}>
                                 Ingrese solo si conoce la localidad y la mesa exacta de votación.
                             </div>
                             <div className='grid__container'>
                                 <Toggle style={{ marginTop: 5 }} defaultChecked={checkPlace} onChange={(e) => setCheckPlace(e)} />
-                                <InputGroup inside style={{ marginBottom: 10 }}>
-                                    <InputGroup.Addon>
-                                        <HiOutlineLibrary size={size} className="register__icon" />
-                                    </InputGroup.Addon>
-                                    <Input disabled={!checkPlace} type='text' placeholder='Puesto de Votación' value={votingBooth} onChange={handleChangeVotingBooth} />
-                                </InputGroup>
+                                <SelectPicker disabled={!checkPlace} placement="auto" style={{ marginBottom: 10 }} placeholder="Puesto de Votación" data={votingBoothOptions} searchable={true} block value={votingBooth} onChange={handleChangeVotingBooth} />
                                 <Toggle style={{ marginTop: 5 }} defaultChecked={checkTable} onChange={(e) => setCheckTable(e)} />
                                 <InputGroup inside>
                                     <InputGroup.Addon>
