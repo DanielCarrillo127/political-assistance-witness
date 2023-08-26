@@ -72,7 +72,7 @@ const RegisterForm = () => {
 
     const handleSubmit = async () => {
         setIsloading(true)
-        if (name === "" || surnames === "" || cedula === "" || phoneNumber === "" || address === "" || sex === "" || age === "" || leaderid === "") {
+        if (name === "" || surnames === "" || cedula === "" || phoneNumber === "" || address === "" || sex === "" || age === "" || leaderid === "" || productiveSection === "") {
             toast.warn(`Debes ingresar todos los campos marcados (*) para realizar el registro`, {
                 position: "top-right",
                 autoClose: 3000,
@@ -245,7 +245,7 @@ const RegisterForm = () => {
                             </div>
                         </div>
                         <div style={styles}>
-                            <SelectPicker placeholder={"Sector Economico"} placement="auto" data={optionsEconomicSector} block value={productiveSection} onChange={handleChangeSection} />
+                            <SelectPicker placeholder={"Sector Economico*"} placement="auto" data={optionsEconomicSector} block value={productiveSection} onChange={handleChangeSection} />
                         </div>
 
                         <div style={styles}>
