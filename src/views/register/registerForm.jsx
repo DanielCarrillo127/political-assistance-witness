@@ -20,11 +20,10 @@ const RegisterForm = () => {
         }
     }, [])
 
-    const [votingBoothOptions, setVotingBoothOptions] = useState(
-        votingBoothVpar.map((place, index) => {
+    const votingBoothOptions = votingBoothVpar.map((place, index) => {
             return Object.assign({}, {key: index, label: `${place?.puesto}`, value: place?.puesto, }) //(${place?.dirección})
         })
-    )
+    
 
 
     const [isloading, setIsloading] = useState(false);
@@ -235,7 +234,7 @@ const RegisterForm = () => {
                             </div>
                             <div className='grid__container'>
                                 <Toggle style={{ marginTop: 5 }} defaultChecked={checkPlace} onChange={(e) => setCheckPlace(e)} />
-                                <SelectPicker disabled={!checkPlace} placement="auto" style={{ marginBottom: 10 }} placeholder="Puesto de Votación" data={votingBoothOptions} searchable={true} block value={votingBooth} onChange={handleChangeVotingBooth} />
+                                <SelectPicker disabled={!checkPlace} placement="autoVerticalEnd" style={{ marginBottom: 10 }} placeholder="Puesto de Votación" data={votingBoothOptions} searchable={true} block value={votingBooth} onChange={handleChangeVotingBooth} />
                                 <Toggle style={{ marginTop: 5 }} defaultChecked={checkTable} onChange={(e) => setCheckTable(e)} />
                                 <InputGroup inside>
                                     <InputGroup.Addon>

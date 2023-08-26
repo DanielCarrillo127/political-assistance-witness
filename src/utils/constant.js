@@ -232,7 +232,7 @@ export const votingBoothVpar= [
      "dirección": "CLL 18 B NO 30 A 54 BARRIO CASIMIRO MAESTRE"
     },
     {
-     "puesto": "IE MAYOR V\/DUPAR CESAR POMPEYO MENDOZA",
+     "puesto": "IE MAYOR V/DUPAR CESAR POMPEYO MENDOZA",
      "mujeres": 1671,
      "hombres": 1395,
      "total": 3066,
