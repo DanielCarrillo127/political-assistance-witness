@@ -144,7 +144,7 @@ const RegisterForm = () => {
                 setAddress("")
                 setVotingBooth("")
                 setTable("")
-                setLeaderid("")
+                if(!isCustomLink)setLeaderid("")
                 setProductiveSection("")
             } else {
                 toast.warn(`Ingrese una Cedula Valida`, {
