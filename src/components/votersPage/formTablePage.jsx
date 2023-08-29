@@ -6,8 +6,8 @@ import { DataContext } from "../../context/userContext";
 import { toast } from "react-toastify";
 import DeleteVoter from './modals/deleteVoter/deleteVoter';
 import SetRoleVoter from './modals/setRoteVoter/setRoleVoter';
+import UpdateVoter from './modals/updateVoter/updateVoter';
 import './formTablePage.css'
-
 
 //to do; STATE to determinate if the user can set roles, and modify list of search
 const FormTablePage = () => {
@@ -155,10 +155,21 @@ const FormTablePage = () => {
             case '2':
                 if (idSearch !== "") {
                     const reqByCoor = await getAllVotersByCoordinatorApi(user.cedula, idSearch);
+                    console.log(reqByCoor)
                     if (reqByCoor.status === 200) {
                         const newLabelsData = changeLabels(reqByCoor.data.result)
                         setData(newLabelsData)
-                        setIdSearch("")
+                        // setIdSearch("")
+                    }else if(reqByCoor.response.status === 403){
+                        toast.warn(`La cédula ingresada no corresponde a un coordinador.`, {
+                            position: "top-right",
+                            autoClose: 3000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: false,
+                            draggable: true,
+                            progress: undefined,
+                        });
                     }
                 } else {
                     toast.warn(`Debes ingresar una cedula valida para realizar la busqueda.`, {
@@ -178,7 +189,7 @@ const FormTablePage = () => {
                     if (reqByLeader.status === 200) {
                         const newLabelsData = changeLabels(reqByLeader.data.result)
                         setData(newLabelsData)
-                        setIdSearch("")
+                        // setIdSearch("")
                     }
                 } else {
                     toast.warn(`Debes ingresar una cedula valida para realizar la busqueda.`, {
@@ -198,7 +209,7 @@ const FormTablePage = () => {
                 if (reqAllLeader.status === 200) {
                     const newLabelsData = changeLabels(reqAllLeader.data.result)
                     setData(newLabelsData)
-                    setIdSearch("")
+                    // setIdSearch("")
                 }
                 break;
             case '5':
@@ -206,7 +217,7 @@ const FormTablePage = () => {
                 if (reqAllCoor.status === 200) {
                     const newLabelsData = changeLabels(reqAllCoor.data.result)
                     setData(newLabelsData)
-                    setIdSearch("")
+                    // setIdSearch("")
                 }
                 break;
             case '6':
@@ -215,7 +226,7 @@ const FormTablePage = () => {
                     if (reqLeadersByCoor.status === 200) {
                         const newLabelsData = changeLabels(reqLeadersByCoor.data.result)
                         setData(newLabelsData)
-                        setIdSearch("")
+                        // setIdSearch("")
                     }
                 } else {
                     toast.warn(`Debes ingresar una cedula valida para realizar la busqueda.`, {
@@ -267,10 +278,24 @@ const FormTablePage = () => {
     const [openSetRole, setOpenSetRole] = useState(false);
     const handleCloseSetRole = () => setOpenSetRole(false);
 
+    const [openUpdateVoter, setOpenUpdateVoter] = useState(false);
+    const [UpdateVoterData, setUpdateVoterData] = useState({});
+    const handleCloseUpdateVoter = () => setOpenUpdateVoter(false);
+
+
+    const handlerOpenEdit = (data) => {
+        setUpdateVoterData(data)
+        // console.log(data)
+        setOpenUpdateVoter(true)
+    }
+    const handlerUpdateTable = () => {
+        handlerSearch()
+    }
+
     return (
         <div>
             <div>
-                <p style={{ padding: '8px' }}>Bienvenido, encontraras listadas las diferentes acciones asociadsas a los usuarios de la aplicacion.</p>
+                <p style={{ padding: '8px' }}>Bienvenido, encontraras listadas las diferentes acciones asociadas a los usuarios de la aplicacion.</p>
                 <div className="container__component">
                     <div className="container__header">
                         <h2>Sistema de planillas</h2>
@@ -285,17 +310,18 @@ const FormTablePage = () => {
                             <div className='contianer__voter__actions'>
                                 <button className='button__actions voter__action' onClick={() => setOpenSetRole(true)} > Administrar Roles</button>
                                 <button className='button__actions voter__action' onClick={() => setOpenDeleteV(true)} > Eliminar Votante</button>
-                                <button className='button__actions voter__action' disabled> Actualizar Votante</button>
+                                {/* <button className='button__actions voter__action' onClick={() => setOpenUpdateVoter(true)} > Actualizar Votante</button> */}
                             </div>
                             <div>
-                                <TableReusable defaultColumns={defaultColumns} data={data} activeColumnSort={true} pageLimit={25} />
+                                <TableReusable defaultColumns={defaultColumns} data={data} activeColumnSort={true} pageLimit={25} hasEdit={true} callbackEdit={handlerOpenEdit} />
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <DeleteVoter open={openDeleteV} handleClose={handleCloseDeleteV} />
-            <SetRoleVoter open={openSetRole} handleClose={handleCloseSetRole} />
+            <DeleteVoter open={openDeleteV} handleClose={handleCloseDeleteV} handlerUpdateTable={handlerUpdateTable} />
+            <SetRoleVoter open={openSetRole} handleClose={handleCloseSetRole} handlerUpdateTable={handlerUpdateTable} />
+            {openUpdateVoter && <UpdateVoter open={openUpdateVoter} handleClose={handleCloseUpdateVoter} UpdateVoterData={UpdateVoterData} handlerUpdateTable={handlerUpdateTable} />}
         </div>
     )
 }

@@ -35,6 +35,7 @@ const SetRoleVoter = (props) => {
                     draggable: true,
                     progress: undefined,
                 });
+                props.handlerUpdateTable();
             }
         } else {
             toast.warn(`Debes ingresar una cedula y/o seleccionar un rol valido para realizar el cambio.`, {

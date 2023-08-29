@@ -25,6 +25,7 @@ const DeleteVoter = (props) => {
                     draggable: true,
                     progress: undefined,
                 });
+                props.handlerUpdateTable();
             }
         } else {
             toast.warn(`Debes ingresar una cedula valida para realizar la acción.`, {

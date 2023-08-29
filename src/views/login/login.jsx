@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { loginApi } from "../../api/requestUsers";
 import { DataContext } from '../../context/userContext'
 import "./login.css"
-import { HiOutlineIdentification, HiOutlineLockOpen, HiOutlineChevronRight } from "react-icons/hi";
+import { HiOutlineIdentification, HiOutlineLockOpen, HiOutlineChevronRight, HiOutlineAtSymbol } from "react-icons/hi";
 
 
 
@@ -110,6 +110,8 @@ const Login = () => {
                 <div className="screen">
                     <div className="screen__content">
                         <div className="login">
+                        <div> <HiOutlineAtSymbol size={40} /></div>
+                        <h3><span>Asis~Politico</span></h3>
                             <div className="login__field">
 
                                 <HiOutlineIdentification size={19} className="login__icon " />

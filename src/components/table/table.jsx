@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { Table, TagPicker, Pagination, Input, InputGroup, SelectPicker, Whisper, Tooltip, } from 'rsuite';
 import './table.css'
-import { FaRegFileExcel } from "react-icons/fa";
+import { FaRegFileExcel, FaRegEdit } from "react-icons/fa";
 import ExportToXlsx from '../../utils/exportToXlsx';
 
 
@@ -10,7 +10,8 @@ import ExportToXlsx from '../../utils/exportToXlsx';
 const TableReusable = (props) => {
 
 
-    const defaultColumns = props.defaultColumns
+    const defaultColumns = props.defaultColumns;
+    const hasEdit = props.hasEdit;
     const [data, setData] = useState(props.data);
 
     const [loading, setLoading] = useState(false);
@@ -126,12 +127,27 @@ const TableReusable = (props) => {
         ExportToXlsx('ExportData', dataExport, columns)
     }
 
+    const callbackEdit = (rowData) => {
+        props.callbackEdit(rowData)
+    }
+
+    const EditCell = ({ rowData, ...props }) => (
+        <Cell {...props} style={{ padding: 3 }}>
+            <div style={{
+                width: 40,
+                height: 40,
+            }}>
+                <FaRegEdit style={{ cursor: "pointer" }} onClick={() => callbackEdit(rowData)} />
+            </div>
+        </Cell>
+    );
+
     return (
         <div className='table'>
             <hr />
             {/* data len {props.data} */}
             <Whisper speaker={<Tooltip> descargar xlsx</Tooltip>} trigger="hover" placement="top">
-                <button className='button__actions right' onClick={handleExportData}><FaRegFileExcel className='exportIcon' size={20}/></button>
+                <button className='button__actions right' onClick={handleExportData}><FaRegFileExcel className='exportIcon' size={20} /></button>
             </Whisper>
 
             <div className='columns-wrapper'>
@@ -203,6 +219,12 @@ const TableReusable = (props) => {
                             </Column>
                         );
                     })}
+                    {hasEdit && <Column width={50} align="center">
+                        <HeaderCell style={{ padding: 0, }}>
+                            ...
+                        </HeaderCell>
+                        <EditCell />
+                    </Column>}
                 </Table>
 
             </div>

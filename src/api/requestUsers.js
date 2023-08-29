@@ -136,11 +136,11 @@ export const setRoleApi = async (userCedula, userUpdateCedula, newRole) => {
   }
 };
 
-export const updateUserApi = async (user) => {
+export const updateUserApi = async (body) => {
   try {
     const req = await axios.post(
       `${process.env.REACT_APP_API_URL}/updateUser`,
-      user,
+      body,
       { headers: { 'authorization': `${localStorage.getItem('TOKEN')}` } }
     );
     return req;

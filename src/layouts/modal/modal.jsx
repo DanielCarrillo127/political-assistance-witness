@@ -14,6 +14,9 @@ const ModalLayout = (props) => {
                     </Modal.Body>
                     <Modal.Footer>
                     <div className='line-division' style={{marginBottom:10}}/>
+                       {props.actionButton && <Button  appearance='primary' style={{ backgroundColor: 'var(--background-dark-color)', color: 'white', marginTop: 10 }} loading={props.isloading} onClick={props.actionCallback} >
+                       {props.actionText}
+                        </Button>} 
                         <Button onClick={props.handleClose} appearance="default">
                             Cerrar
                         </Button>
