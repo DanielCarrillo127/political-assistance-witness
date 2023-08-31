@@ -7,6 +7,7 @@ import "./login.css"
 import { HiOutlineIdentification, HiOutlineLockOpen, HiOutlineChevronRight, HiOutlineAtSymbol } from "react-icons/hi";
 
 
+// window.open(`${window.location.origin}/registerForm`, '_blank')
 
 const Login = () => {
 

@@ -15,12 +15,12 @@ export const optionsEconomicSector = [
     { key: 14, label: 'COMUNICACIONES', value: 'COMUNICACIONES' },
     { key: 15, label: 'CULTURA Y TURISMO', value: 'CULTURA Y TURISMO' },
     { key: 16, label: 'INFRAESTRUCTURA Y MATERIALES', value: 'INFRAESTRUCTURA Y MATERIALES' },
-    { key: 17, label: 'DESARROLLOS MINEROS', value: 'DESARROLLOS MINEROS' },
+    { key: 17, label: 'DESARROLLOS MINEROS ENERGÉTICO', value: 'DESARROLLOS MINEROS' },
     { key: 18, label: 'TRANSPORTES', value: 'TRANSPORTES' },
     { key: 19, label: 'ARTESANIAS Y SIMILARES', value: 'ARTESANIAS Y SIMILARES' },
     { key: 20, label: 'VESTIDOS', value: 'VESTIDOS' },
     { key: 21, label: 'SISTEMAS Y DESARROLLO TECNOLOGICO', value: 'SISTEMAS Y DESARROLLO TECNOLOGICO' },
-    { key: 22, label: 'ESCUELA DE NUEVOS LIDERES POLITICOS', value: 'ESCUELA DE NUEVOS LIDERES POLITICOS' }
+    { key: 22, label: 'ESCUELA DE NUEVOS LIDERES POLITICOS', value: 'ESCUELA DE NUEVOS LIDERES POLITICOS' },
 ]
 
 export const votingBoothVpar= [
