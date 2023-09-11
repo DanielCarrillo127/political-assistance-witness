@@ -155,7 +155,7 @@ const FormTablePage = () => {
             case '2':
                 if (idSearch !== "") {
                     const reqByCoor = await getAllVotersByCoordinatorApi(user.cedula, idSearch);
-                    console.log(reqByCoor)
+                    // console.log(reqByCoor)
                     if (reqByCoor.status === 200) {
                         const newLabelsData = changeLabels(reqByCoor.data.result)
                         setData(newLabelsData)

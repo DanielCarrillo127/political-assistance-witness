@@ -76,6 +76,16 @@ const ChangePassword = (props) => {
                     setCurrentPassword("")
                     setNewPassword("")
                     setNewPasswordValidation("")
+                }else if(req.response.status === 404){
+                    toast.warn(`${req.response.data.message}`, {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: false,
+                        draggable: true,
+                        progress: undefined,
+                    });
                 }
             } else {
                 toast.warn(`La contraseña no puede contener espacios en blanco y debe tener la longitud mínima de 6 caracteres.`, {
