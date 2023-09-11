@@ -149,6 +149,19 @@ export const updateUserApi = async (body) => {
   }
 };
 
+export const updateUserPasswordApi = async (body) => {
+  try {
+    const req = await axios.post(
+      `${process.env.REACT_APP_API_URL}/updateUserPassword`,
+      body,
+      { headers: { 'authorization': `${localStorage.getItem('TOKEN')}` } }
+    );
+    return req;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const getCountData = async (userCedula) => {
   try {
     const req = await axios.post(

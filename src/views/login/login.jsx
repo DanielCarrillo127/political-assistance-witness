@@ -122,11 +122,14 @@ const Login = () => {
                                 <HiOutlineLockOpen className="login__icon" />
                                 <input type="password" className="login__input" placeholder="Contraseña" value={password} onChange={handleChangePass} />
                             </div>
-                            {isErrorId ? <>existe un error en tu id</> : <></>}
-                            {isErrorpass ? <>existe un error en tu password</> : <></>}
+                            {isErrorId ? <p>Cedula incorrecta <br /> </p> : <></>}
+                            {isErrorpass ? <p>Contraseña incorrecta </p> : <></>}
                             <button className="button login__submit" onClick={() => handleSubmit()}>
                                 <span className="button__text">Iniciar Sesión</span>
                                 <HiOutlineChevronRight className="button__icon" />
+                            </button>
+                            <button className="button__form" onClick={() =>{window.open(`${window.location.origin}/registerForm`, '_self')}}>
+                                <span className="">Formulario de inscripción</span>
                             </button>
 
                         </div>

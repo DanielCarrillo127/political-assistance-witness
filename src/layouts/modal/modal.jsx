@@ -5,7 +5,7 @@ const ModalLayout = (props) => {
     return (
         <>
             <div>
-                <Modal overflow={true} open={props.open} onClose={props.handleClose}>
+                <Modal size={props.size ? props.size : 'sm'} overflow={true} open={props.open} onClose={props.handleClose}>
                     <Modal.Header className='modal-header'>
                         <Modal.Title>{props.title}</Modal.Title>
                     </Modal.Header>

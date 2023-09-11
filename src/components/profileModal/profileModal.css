@@ -2,7 +2,7 @@
     padding: 0;
 }
 
-#modalProfile .rs-modal-body{
+#modalProfile .rs-modal-body {
     margin-top: 0;
     padding-bottom: 0;
     overflow: visible !important;
@@ -43,7 +43,7 @@
     top: 25%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
-  }
+}
 
 .IconContainer {
     display: flex;
@@ -86,7 +86,7 @@
     overflow: scroll;
 }
 
-.ContainerTitle{
+.ContainerTitle {
     display: flex;
     margin: 0px 0px 5px 0px;
     padding: 0px;
@@ -103,7 +103,7 @@
     font-size: 14px;
 }
 
-.copyButton{
+.copyButton {
     background: var(--background-dark-color);
     border-radius: 8px;
     color: #fff;
@@ -184,6 +184,25 @@
     margin-bottom: 5px;
 }
 
+.btnAction {
+    background: var(--background-dark-color);
+    border-radius: 10px;
+    color: #fff;
+    font-size: .8rem;
+    font-weight: bold;
+    padding: .6rem .7rem;
+    border: 1px solid var(--background-dark-color);
+    margin-top: 10px;
+}
+.actionsTitle{
+    text-align: start;
+    font-weight: 500;
+}
+
+.actionsContainer{
+    margin-top: 10px;
+}
+
 @media screen and (max-width: 992px) {
     .InformationContainer {
         /* width: 100%; */
@@ -202,7 +221,12 @@
     .LeftContainer {
         display: none;
     }
-    #modalProfile .rs-modal-body{
+
+    .InformationContainer {
+        width: 100%;
+    }
+
+    #modalProfile .rs-modal-body {
         overflow: scroll;
     }
 }

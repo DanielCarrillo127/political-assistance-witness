@@ -1,6 +1,7 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Modal, Whisper, Tooltip, } from 'rsuite';
 import { DataContext } from '../../context/userContext';
+import ChangePassword from './modal/changePassword';
 import './profileModal.css'
 const ProfileModal = (props) => {
 
@@ -9,6 +10,10 @@ const ProfileModal = (props) => {
     const copyToClipboard = () => {
         navigator.clipboard.writeText(`${window.location.origin}/registerForm?leaderid=${user?.cedula}`);
     }
+
+    //handlers to open modal
+    const [openModal, setOpenModal] = useState(false);
+    const handleCloseModal = () => setOpenModal(false);
 
     return (
         <div>
@@ -66,6 +71,14 @@ const ProfileModal = (props) => {
                                             </p>
                                         </div>
                                     </div>
+                                    <div className="actionsContainer">
+                                        <p className='actionsTitle'>Acciones del usuario:</p>
+                                        <div style={{ display: 'flex', gap: '10px' }}>
+                                            <button className="btnAction" onClick={() => setOpenModal(true)}>Cambiar contraseña</button>
+                                            <button className="btnAction" style={{opacity: 0.8}} disabled>Editar perfil</button>
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <div className="Section2">
                                     <h5 className="Header">Información Complementaria</h5>
@@ -104,6 +117,7 @@ const ProfileModal = (props) => {
                     </div>
                 </Modal.Body>
             </Modal>
+            <ChangePassword open={openModal} handleClose={handleCloseModal} />
         </div>
 
     )
