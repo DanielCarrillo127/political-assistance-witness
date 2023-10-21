@@ -2,15 +2,16 @@ import { useState, useEffect } from 'react'
 import { votingBoothPaz } from '../../utils/constant';
 import { toast } from "react-toastify";
 import { registerCounterVotesApi } from '../../api/requestRegisterVote';
-import { Input, InputGroup, Whisper, Tooltip, SelectPicker, Button} from 'rsuite';
+import { Input, InputGroup, Whisper, Tooltip, SelectPicker, Button } from 'rsuite';
 import InfoIcon from '@rsuite/icons/legacy/Info';
-import { HiOutlineIdentification, HiOutlineInboxIn, HiOutlinePlusCircle } from "react-icons/hi";
-
+import { HiOutlineIdentification, HiOutlineInboxIn, HiOutlinePlusCircle, HiArrowSmLeft } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
 import './register.css'
 
 
 const RegisterCounter = () => {
 
+    const navigate = useNavigate();
 
     const votingBoothOptions = votingBoothPaz.map((place, index) => {
         return Object.assign({}, { key: index, label: `${place?.puesto}`, value: place?.puesto, mesas: place?.mesas, }) //(${place?.dirección})
@@ -35,7 +36,7 @@ const RegisterCounter = () => {
 
     const [isTimeWithinRange12, setIsTimeWithinRange12] = useState(false);
     const [isTimeWithinRange16, setIsTimeWithinRange16] = useState(false);
-    
+
     useEffect(() => {
 
         function isCurrentTimeBetween12And14() {
@@ -91,7 +92,7 @@ const RegisterCounter = () => {
                     votingBooth: votingBooth,
                     table: table,
                     votesAt12: isTimeWithinRange12 ? countAt12 : "",
-                    votesAt4: isTimeWithinRange16 ? countAt4 :""
+                    votesAt4: isTimeWithinRange16 ? countAt4 : ""
                 }
                 const req = await registerCounterVotesApi(newRegister);
                 if (req.status === 201) {
@@ -152,8 +153,12 @@ const RegisterCounter = () => {
             <div className='container'>
                 <div className='container__component' style={{ width: 450 }}>
                     <div>
-                        <h4 className='form__title'>
-                            Registro parcial {isTimeWithinRange12 ? "[12:00 PM]": isTimeWithinRange16 ? "[04:00 PM]":<p style={{textTransform: "uppercase", fontWeight: 700, marginLeft: 7}}>"cerrado"</p>}
+                        <div className='back__button' onClick={() => navigate('/')} style={{ display: 'flex', justifyContent: 'start', cursor: 'pointer' }}>
+                            <HiArrowSmLeft size={size} />
+                            <p>Volver</p>
+                        </div>
+                        <h4 className='form__title' style={{ padding: "10px 0px 15px 0px" }}>
+                            Registro parcial {isTimeWithinRange12 ? "[12:00 PM]" : isTimeWithinRange16 ? "[04:00 PM]" : <p style={{ textTransform: "uppercase", fontWeight: 700, marginLeft: 7 }}>"cerrado"</p>}
                         </h4>
                     </div>
                     <div style={styles} >

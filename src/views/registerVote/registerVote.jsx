@@ -5,8 +5,8 @@ import { registerVotesApi } from '../../api/requestRegisterVote';
 import { Input, InputGroup, Whisper, Tooltip, SelectPicker, Button, List, FlexboxGrid } from 'rsuite';
 import InfoIcon from '@rsuite/icons/legacy/Info';
 import ImageIcon from '@rsuite/icons/legacy/Image';
-import { HiOutlineIdentification, HiOutlineInboxIn, HiOutlineFlag, HiOutlineMinusCircle, HiOutlineXCircle } from "react-icons/hi";
-
+import { HiOutlineIdentification, HiOutlineInboxIn, HiOutlineFlag, HiOutlineMinusCircle, HiOutlineXCircle, HiArrowSmLeft } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
 import { imageDb } from '../../api/firebaseConfig';
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
@@ -15,6 +15,7 @@ import './register.css'
 
 const RegisterVote = () => {
 
+    const navigate = useNavigate();
 
     const votingBoothOptions = votingBoothPaz.map((place, index) => {
         return Object.assign({}, { key: index, label: `${place?.puesto}`, value: place?.puesto, mesas: place?.mesas, }) //(${place?.dirección})
@@ -163,8 +164,12 @@ const RegisterVote = () => {
     return (
         <>
             <div className='container'>
-                <div className='container__component' style={{ width: 450, margin: '40px 0px' }}>
+                <div className='container__component' style={{ width: 450, margin: '40px 20px' }}>
                     <div>
+                        <div className='back__button' onClick={() => navigate('/')} style={{ display: 'flex', justifyContent: 'start', cursor: 'pointer' }}>
+                            <HiArrowSmLeft size={size} />
+                            <p>Volver</p>
+                        </div>
                         <h4 className='form__title'>
                             Registro de Votos
                         </h4>

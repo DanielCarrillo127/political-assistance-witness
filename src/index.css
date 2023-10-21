@@ -68,6 +68,14 @@ code {
   border: 1px solid var(--background-dark-color);
 }
 
+.back__button{
+  color: var(--background-dark-color);
+  font-size: 16px;
+  font-weight: 600;
+  /* letter-spacing: 1px; */
+  padding: 1.5rem 1rem 0rem;
+}
+
 /* 
 table {
   border-collapse: collapse;
