@@ -10,15 +10,16 @@ const RecordCard = (props) => {
                 <img className='image-contain' style={{ borderRadius: 13 }} src={props.img} alt="imgRecord" onClick={() => props.handleOpenDetail(props.id)} />
             </div>
             <div className='info__container'>
+                <p className='site'>Testigo:</p>
                 <span className='witnessName'>{props.witnessName}</span>
-                <p className='site'>{props.witnessSite}</p>
-                <div className='container-2'>
-                    <div style={{ display: 'flex' }}>
-                        <p className='votes'>Votos:</p> <p className='count'>{props.votes}</p>
-                    </div>
-                    <div style={{ display: 'flex' }}>
-                        <p className='inspector'>Revisor:</p>{props.inspector}
-                    </div>
+                <p className='site'>Lugar de votación:</p>
+                <p className='site' style={{ marginTop: 0, fontWeight: 'bold' }} >{props.witnessSite}</p>
+
+                <div style={{ display: 'flex', margin: '2px 0' }}>
+                    <p className='votes'>Votos a favor:</p> <p className='count'>{props.votes}</p>
+                </div>
+                <div style={{ display: 'flex' }}>
+                    <p className='inspector' style={{ marginTop: 0 }}>Estado:</p> <p style={{textDecorationLine: 'underline',marginTop: 0, fontWeight: 'bold', color: props?.status === 'PENDIENTE' ? 'var(--rs-btn-primary-bg)' : 'red' }}>{props.status}</p>
                 </div>
             </div>
             <hr className='line' />

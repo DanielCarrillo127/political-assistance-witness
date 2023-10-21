@@ -5,7 +5,7 @@ const Index = () => {
     return (
         <>
             <div className="profile-card">
-                <div className="personal-info-container">
+                {/* <div className="personal-info-container">
                     <div style={{ display: 'flex' , flexDirection: 'column'}}>
                         <img className="img-candidate" src="candidate.png" alt="Candidate" />
                         <img className="img-number" src="number.png" alt="number pic" />
@@ -37,7 +37,7 @@ const Index = () => {
                         <li>•Secretaria general "alumbrado público"</li>
                         <li>•Secretaria de gobierno "seguridad, convivencia y lotes públicos enmontados y con puntos críticos en Valledupar"</li>
                     </ul>
-                </div>
+                </div> */}
             </div>
         </>
     )

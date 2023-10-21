@@ -116,7 +116,7 @@ const Dashboard = () => {
               </div>
             </li>
             <li>
-              <div className={`${Handleonclick === 'witnessPage' ? "active" : ""}  ${Restrictions > 2 ? "disabled" : ""} disabled itemMenu`} onClick={() => saveHdl('witnessPage')}>
+              <div className={`${Handleonclick === 'witnessPage' ? "active" : ""}  ${Restrictions > 2 ? "disabled" : ""} itemMenu`} onClick={() => saveHdl('witnessPage')}>
                 <HiOutlineInboxIn size={25} className='icon' />
                 <span>Testigos Electorales</span>
               </div>

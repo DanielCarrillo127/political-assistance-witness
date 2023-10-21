@@ -111,8 +111,8 @@ const Login = () => {
                 <div className="screen">
                     <div className="screen__content">
                         <div className="login">
-                        <div> <HiOutlineAtSymbol size={40} /></div>
-                        <h3><span>Asis~Politico</span></h3>
+                            <div> <HiOutlineAtSymbol size={40} /></div>
+                            <h3><span>Asis~Politico</span></h3>
                             <div className="login__field">
 
                                 <HiOutlineIdentification size={19} className="login__icon " />
@@ -124,13 +124,18 @@ const Login = () => {
                             </div>
                             {isErrorId ? <p>Cedula incorrecta <br /> </p> : <></>}
                             {isErrorpass ? <p>Contraseña incorrecta </p> : <></>}
-                            <button className="button login__submit" onClick={() => handleSubmit()}>
+                            <button style={{ marginTop: '10px' }} className="button login__submit" onClick={() => handleSubmit()}>
                                 <span className="button__text">Iniciar Sesión</span>
                                 <HiOutlineChevronRight className="button__icon" />
                             </button>
-                            <button className="button__form" onClick={() =>{window.open(`${window.location.origin}/registerForm`, '_self')}}>
-                                <span className="">Formulario de inscripción</span>
-                            </button>
+                            <div style={{ display: 'flex', flexDirection: 'column' ,justifyContent: 'center' }}>
+                                <button style={{ marginLeft: '10px' , marginRight: '30px' }} className="button__form" onClick={() => { window.open(`${window.location.origin}/registerVote`, '_self') }}>
+                                    <span className="">Registro final de votos</span>
+                                </button> 
+                                <button style={{ marginLeft: '10px' , marginRight: '30px' }} className="button__form" onClick={() => { window.open(`${window.location.origin}/counterPartial`, '_self') }}>
+                                    <span className="">Registro de conteo parcial</span>
+                                </button>
+                            </div>
 
                         </div>
                         {/* <div className="company__login">
