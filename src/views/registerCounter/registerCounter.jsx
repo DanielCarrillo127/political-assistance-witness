@@ -74,15 +74,15 @@ const RegisterCounter = () => {
     const handleSubmit = async () => {
         setIsloading(true)
         if (cedula === "" || votingBooth === "" || table === "") {
-            toast.warn(`Debes ingresar todos los campos marcados (*) para realizar el registro`, {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-            });
+            // toast.warn(`Debes ingresar todos los campos marcados (*) para realizar el registro`, {
+            //     position: "top-right",
+            //     autoClose: 3000,
+            //     hideProgressBar: false,
+            //     closeOnClick: true,
+            //     pauseOnHover: false,
+            //     draggable: true,
+            //     progress: undefined,
+            // });
             setIsloading(false)
         } else {
             if (4 < cedula.length && cedula.length <= 10) {
@@ -96,52 +96,52 @@ const RegisterCounter = () => {
                 }
                 const req = await registerCounterVotesApi(newRegister);
                 if (req.status === 201) {
-                    toast.success(`Registrado creado correctamente`, {
-                        position: "top-right",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: false,
-                        draggable: true,
-                        progress: undefined,
-                    });
+                    // toast.success(`Registrado creado correctamente`, {
+                    //     position: "top-right",
+                    //     autoClose: 3000,
+                    //     hideProgressBar: false,
+                    //     closeOnClick: true,
+                    //     pauseOnHover: false,
+                    //     draggable: true,
+                    //     progress: undefined,
+                    // });
 
                 } else {
 
                     if (req.status === 208) {
-                        toast.warn(`El testigo ingresado no existe`, {
-                            position: "top-right",
-                            autoClose: 3000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: false,
-                            draggable: true,
-                            progress: undefined,
-                        });
+                        // toast.warn(`El testigo ingresado no existe`, {
+                        //     position: "top-right",
+                        //     autoClose: 3000,
+                        //     hideProgressBar: false,
+                        //     closeOnClick: true,
+                        //     pauseOnHover: false,
+                        //     draggable: true,
+                        //     progress: undefined,
+                        // });
                     } else if (req.response.status === 400) {
-                        toast.warn(`La tabla o mesa de votación no coinciden con la del testigo`, {
-                            position: "top-right",
-                            autoClose: 3000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: false,
-                            draggable: true,
-                            progress: undefined,
-                        });
+                        // toast.warn(`La tabla o mesa de votación no coinciden con la del testigo`, {
+                        //     position: "top-right",
+                        //     autoClose: 3000,
+                        //     hideProgressBar: false,
+                        //     closeOnClick: true,
+                        //     pauseOnHover: false,
+                        //     draggable: true,
+                        //     progress: undefined,
+                        // });
                     }
                     setIsloading(false)
                 }
                 setIsloading(false)
             } else {
-                toast.warn(`Ingrese una Cedula Valida`, {
-                    position: "top-right",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: false,
-                    draggable: true,
-                    progress: undefined,
-                });
+                // toast.warn(`Ingrese una Cedula Valida`, {
+                //     position: "top-right",
+                //     autoClose: 3000,
+                //     hideProgressBar: false,
+                //     closeOnClick: true,
+                //     pauseOnHover: false,
+                //     draggable: true,
+                //     progress: undefined,
+                // });
                 setIsloading(false)
             }
 
