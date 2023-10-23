@@ -37,7 +37,10 @@ const RegisterVote = () => {
     const [votes, setVotes] = useState(candidatesOptions ? candidatesOptions : []);
 
     const [file, setFile] = useState(null);
-    const [responseMessage, setResponseMessage] = useState("");
+    const [responseMessage, setResponseMessage] = useState({
+        message: "",
+        type: ""
+    });
 
     //set handlers for inputs
     const handleChangeCedula = (e) => { setCedula(e) };
@@ -68,6 +71,10 @@ const RegisterVote = () => {
 
     const handleSubmit = async () => {
         setIsloading(true)
+        setResponseMessage({
+            message: "",
+            type: ""
+        })
         if (cedula === "" || votingBooth === "" || table === "" || whiteVotes === "" || nullVotes === "" || file === null || unmarkedVotes === "") {
             // toast.warn(`Debes ingresar todos los campos marcados (*) para realizar el registro`, {
             //     position: "top-right",
@@ -78,10 +85,13 @@ const RegisterVote = () => {
             //     draggable: true,
             //     progress: undefined,
             // });
-            setResponseMessage(`Debes ingresar todos los campos marcados (*) para realizar el registro`)
+            setResponseMessage({
+                message: "Debes ingresar todos los campos marcados (*) para realizar el registro",
+                type: "warning"
+            })
             setIsloading(false)
         } else {
-            if (4 < cedula.length && cedula.length <= 10) {
+            if (6 < cedula.length && cedula.length <= 10) {
 
                 let url
                 try {
@@ -116,7 +126,11 @@ const RegisterVote = () => {
                     //     draggable: true,
                     //     progress: undefined,
                     // });
-                    setResponseMessage(`Registrado creado correctamente`)
+                    setResponseMessage({
+                        message: `Registrado creado correctamente`,
+                        type: "success"
+                    })
+
                 } else {
                     if (req.status === 208) {
                         // toast.warn(`El testigo ingresado no existe`, {
@@ -128,7 +142,11 @@ const RegisterVote = () => {
                         //     draggable: true,
                         //     progress: undefined,
                         // });
-                        setResponseMessage(`El testigo ingresado no existe`)
+                        setResponseMessage({
+                            message: `El testigo ingresado no existe`,
+                            type: "warning"
+                        })
+
                     } else if (req.response.status === 400) {
                         // toast.warn(`La tabla o mesa de votación no coinciden con la del testigo`, {
                         //     position: "top-right",
@@ -139,7 +157,10 @@ const RegisterVote = () => {
                         //     draggable: true,
                         //     progress: undefined,
                         // });
-                        setResponseMessage(`La tabla o mesa de votación no coinciden con la del testigo`)
+                        setResponseMessage({
+                            message: `La tabla o mesa de votación no coinciden con la del testigo`,
+                            type: "warning"
+                        })
                     }
                 }
                 // //clear inputs
@@ -161,7 +182,11 @@ const RegisterVote = () => {
                 //     draggable: true,
                 //     progress: undefined,
                 // });
-                setResponseMessage(`Ingrese una Cedula Valida`)
+                setResponseMessage({
+                    message: `Ingrese una Cedula Valida`,
+                    type: "warning"
+                })
+                
                 setIsloading(false)
             }
 
@@ -282,7 +307,7 @@ const RegisterVote = () => {
                         <Button appearance='primary' block loading={isloading} onClick={() => handleSubmit()} >
                             Registrar Votos
                         </Button>
-                        {responseMessage !== "" && <p>{responseMessage}</p>}
+                        {responseMessage?.message !== "" && <p style={responseMessage?.type === "success" ? { color: "green", marginTop: 10 } : { color: "red", marginTop: 10 }}>{responseMessage.message}</p>}
                     </div>
                 </div>
             </div>

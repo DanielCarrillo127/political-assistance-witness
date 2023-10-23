@@ -25,6 +25,10 @@ const RegisterCounter = () => {
     const [countAt12, setCountAt12] = useState("");
     const [countAt4, setCountAt4] = useState("");
 
+    const [responseMessage, setResponseMessage] = useState({
+        message: "",
+        type: ""
+    });
 
 
     //set handlers for inputs
@@ -73,6 +77,12 @@ const RegisterCounter = () => {
 
     const handleSubmit = async () => {
         setIsloading(true)
+        setResponseMessage(
+            {
+                message: "",
+                type: ""
+
+            })
         if (cedula === "" || votingBooth === "" || table === "") {
             // toast.warn(`Debes ingresar todos los campos marcados (*) para realizar el registro`, {
             //     position: "top-right",
@@ -83,9 +93,13 @@ const RegisterCounter = () => {
             //     draggable: true,
             //     progress: undefined,
             // });
+            setResponseMessage({
+                message: `Debes ingresar todos los campos marcados (*) para realizar el registro`,
+                type: "warning"
+            })
             setIsloading(false)
         } else {
-            if (4 < cedula.length && cedula.length <= 10) {
+            if (6 < cedula.length && cedula.length <= 10) {
 
                 const newRegister = {
                     cedula: cedula,
@@ -105,7 +119,10 @@ const RegisterCounter = () => {
                     //     draggable: true,
                     //     progress: undefined,
                     // });
-
+                    setResponseMessage({
+                        message: `Registrado creado correctamente`,
+                        type: "success"
+                    })
                 } else {
 
                     if (req.status === 208) {
@@ -118,6 +135,10 @@ const RegisterCounter = () => {
                         //     draggable: true,
                         //     progress: undefined,
                         // });
+                        setResponseMessage({
+                            message: `El testigo ingresado no existe`,
+                            type: "warning"
+                        })
                     } else if (req.response.status === 400) {
                         // toast.warn(`La tabla o mesa de votación no coinciden con la del testigo`, {
                         //     position: "top-right",
@@ -128,6 +149,11 @@ const RegisterCounter = () => {
                         //     draggable: true,
                         //     progress: undefined,
                         // });
+                        setResponseMessage({
+                            message: `La tabla o mesa de votación no coinciden con la del testigo`,
+                            type: "warning"
+                        })
+
                     }
                     setIsloading(false)
                 }
@@ -142,6 +168,12 @@ const RegisterCounter = () => {
                 //     draggable: true,
                 //     progress: undefined,
                 // });
+                setResponseMessage(
+                    {
+                        message: `Ingrese una Cedula Valida`,
+                        type: "warning"
+                    }
+                )
                 setIsloading(false)
             }
 
@@ -208,6 +240,7 @@ const RegisterCounter = () => {
                         <Button appearance='primary' block loading={isloading} disabled={!isTimeWithinRange12 && !isTimeWithinRange16} onClick={() => handleSubmit()} >
                             Registrar Conteo parcial
                         </Button>
+                        {responseMessage?.message !== "" && <p style={responseMessage?.type === "success" ? { color: "green", marginTop: 10 } : { color: "red", marginTop: 10 }}>{responseMessage.message}</p>}
                     </div>
                 </div>
             </div>
