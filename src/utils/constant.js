@@ -722,26 +722,36 @@ export const candidatesInfo = [
         id: 1,
         name: "Wilson Rincón Álvarez",
         politicalParty: "Alianza por La Paz Dejando Huellas",
-        isPrincipal: true
+        isPrincipal: true,
+        img: "politicalParties/Partido_Fuerza_de_La_Paz.png",
+        color: "#1b2431"
     },
     {
         id: 2,
         name: "Juan Bautista Calderón Cotes",
         politicalParty: "Partido de la Unión por la Gente",
+        img: "politicalParties/Partido_U.png",
+        color: "#dc290d"
     },
     {
         id: 3,
         name: "Carlos Alberto Arredondo Torres",
         politicalParty: "Partido Colombia Humana",
+        img: "politicalParties/Colombia_Humana.png",
+        color: "#641e8c"
     },
     {
         id: 4,
         name: "Eder de Jesús Noriega Torres	",
         politicalParty: "Partido Colombia Renaciente",
+        img: "politicalParties/Colombia_Renaciente.png",
+        color: "#a0d3e4"
     },
     {
         id: 5,
         name: "Corina Leonor Cárdenas Sedanes",
         politicalParty: "Partido Alianza Democrática Amplia",
+        img: "politicalParties/Ada.png",
+        color: "#048741"
     }
 ]

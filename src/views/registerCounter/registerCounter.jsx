@@ -205,7 +205,7 @@ const RegisterCounter = () => {
                             </InputGroup>
                         </div>
 
-                        <Button appearance='primary' block loading={isloading} onClick={() => handleSubmit()} >
+                        <Button appearance='primary' block loading={isloading} disabled={!isTimeWithinRange12 && !isTimeWithinRange16} onClick={() => handleSubmit()} >
                             Registrar Conteo parcial
                         </Button>
                     </div>

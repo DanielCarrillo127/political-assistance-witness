@@ -273,7 +273,7 @@ const RegisterVote = () => {
                             </div>
                         </div>
                         <Button appearance='primary' block loading={isloading} onClick={() => handleSubmit()} >
-                            Registrar Votante
+                            Registrar Votos
                         </Button>
                     </div>
                 </div>

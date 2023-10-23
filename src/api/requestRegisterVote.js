@@ -41,6 +41,19 @@ export const getVotesApi = async (status) => {
   }
 };
 
+export const getGeneralStatusApi = async (userCedula) => {
+  try {
+    const req = await axios.post(
+      `${process.env.REACT_APP_API_URL}/getGeneralStatus`,
+      { "userCedula": userCedula },
+      { headers: { 'authorization': `${localStorage.getItem('TOKEN')}` } }
+    );
+    return req;
+  } catch (error) {
+    return error;
+  }
+};
+
 
 export const updateVoteStatusApi = async (status) => {
   try {

@@ -25,6 +25,7 @@ const RecordModal = (props) => {
         let totalVotes = 0;
 
         if (props.data?.votersData) {
+            // eslint-disable-next-line
             for (const [key, value] of Object.entries(props.data?.votersData)) {
                 totalVotes += Number(value?.votes) || 0;
             }

@@ -5,39 +5,27 @@ const Index = () => {
     return (
         <>
             <div className="profile-card">
-                {/* <div className="personal-info-container">
-                    <div style={{ display: 'flex' , flexDirection: 'column'}}>
-                        <img className="img-candidate" src="candidate.png" alt="Candidate" />
-                        <img className="img-number" src="number.png" alt="number pic" />
+                <div className="personal-info-container">
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                        <img className="img-candidate" src="candidate.jpeg" alt="Candidate" />
+                        {/* <img className="img-number" src="number.png" alt="number pic" /> */}
                     </div>
                     <div>
-                        <h2>Ender Carrillo</h2>
-                        <p>Candidato al concejo por el partido conservador</p>
+                        <p style={{ fontSize: '1.5em', fontWeight: 'bold', margin: 0 }}>Wilson <br /> Rincón Álvarez</p>
+                    </div>
+                    <div>
+                        <p> <strong>Candidato a la Alcaldía de La Paz - Cesar </strong> por el partido Alianza por La Paz Dejando Huellas</p>
                         <p>2024 - 2027</p>
-                        <p>Perfil profesional: Psicologo</p>
+                        <p><strong>Perfil profesional</strong></p>
+                        <p><em>Administración Financiera y de sistema • Universidad del Santander UDES.</em></p>
                         <ul>
-                            <li>•Fundación Universitaria Área Andina</li>
-                            <li>•Zoni Lenguaje</li>
+                            <li> - Especialista en mercadeo • Universidad autónoma del caribe.</li>
+                            <li> - Gerencia de la hacienda publica • CECAR.</li>
+                            <li> - Especialista en Gerencia en gobierno y gestión pública • Universidad jorge tadeo lozano - UPC Cesar.</li>
+                            <li> - XIII International Seminar on Organizational Management.</li>
                         </ul>
                     </div>
                 </div>
-                <div>
-                    <h3>Cargos comunitarios y públicos</h3>
-                    <ul>
-                        <li>•Edil comuna 4 (presidente) Apoyo psicosocial</li>
-                        <li>•Fundación Goyo Zuleta</li>
-                        <li>•Acompamiento psicologico VFC</li>
-                        <li>•Acompañamiento junta de acción comunal Villa Miriam</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3>Apoyo a la gestión en valledupar</h3>
-                    <ul>
-                        <li>•Acompañamiento a favor de la lucha en contra la tercerización de EMDUPAR</li>
-                        <li>•Secretaria general "alumbrado público"</li>
-                        <li>•Secretaria de gobierno "seguridad, convivencia y lotes públicos enmontados y con puntos críticos en Valledupar"</li>
-                    </ul>
-                </div> */}
             </div>
         </>
     )

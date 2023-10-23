@@ -9,7 +9,7 @@
     margin-top: 1.5rem;
     display: grid;
     grid-gap: 2rem;
-    grid-template-columns: 65% auto;
+    grid-template-columns: 72% auto;
 }
 
 .eventCircle {
@@ -55,7 +55,7 @@
     padding: 10px 20px;
 }
 
-.button_register{
+.button_register {
     border-radius: 13px;
     background-color: #fff;
     font-weight: 600;
@@ -63,6 +63,97 @@
     padding: 15px;
     margin: 0;
     color: var(--background-dark-color);
+}
+
+.stats__container {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-box-pack: justify;
+    flex-wrap: nowrap;
+    background-color: white;
+    line-height: 1.5;
+    padding: 1rem;
+    border-radius: 13px;
+    align-items: center;
+}
+
+.stats__left {
+    border-right: 2px solid #f9f9f8;
+    padding-right: 25px;
+}
+
+.stats__left {
+    display: flex;
+    gap: 30px;
+    flex-wrap: nowrap;
+    flex: 0 1 auto;
+    /* width: 45%; */
+    -webkit-box-pack: justify;
+}
+
+.stats__right {
+    display: flex;
+    flex-wrap: nowrap;
+    flex: 0 1 auto;
+}
+
+.inner__card {
+    background-color: #f9f9f8;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 13px;
+    margin-left: 10px;
+}
+
+
+
+.stats__extra__value__list,
+.inner__card__value {
+    padding: 10px 10px;
+    margin-bottom: 0;
+    color: #929290;
+}
+
+.home__grid .cards__container__votes .card__single .icon {
+    top: 0 !important;
+}
+
+.home__grid .cards__container__votes .card__single {
+    padding: 16px 8px;
+}
+
+.home__grid .cards__container__votes .card__single span {
+    font-size: 0.9rem;
+}
+
+.stats__left__value {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-direction: column;
+}
+
+.stats__info {
+    text-align: left;
+    white-space: pre-line;
+    font-size: 16px;
+    /* width: 45%; */
+}
+
+.rs-list-item:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.rs-list-item {
+    -webkit-box-shadow: 0 0px 0 #e5e5ea, 0 0px 0 #e5e5ea !important;
+    -webkit-box-shadow: 0 0px 0 var(--rs-list-border), 0 0px 0 var(--rs-list-border) !important;
+    box-shadow: 0 0px 0 #e5e5ea, 0 0px 0 #e5e5ea !important;
+    box-shadow: 0 0px 0 var(--rs-list-border), 0 1px 0 var(--rs-list-border) !important;
+}
+
+.rs-progress-line {
+    padding: 2px 12px !important;
 }
 
 @media only screen and (max-width: 1300px) {
@@ -74,6 +165,11 @@
 @media only screen and (max-width: 960px) {
     .cards {
         grid-template-columns: repeat(3, 1fr);
+    }
+
+    .stats__info {
+        text-align: left;
+        white-space: normal;
     }
 
     .home__grid {
