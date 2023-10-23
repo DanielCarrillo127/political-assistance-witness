@@ -42,7 +42,7 @@ const RegisterCounter = () => {
         function isCurrentTimeBetween12And14() {
             const now = new Date();
             const noon = new Date();
-            noon.setHours(12, 0, 0, 0);
+            noon.setHours(6, 0, 0, 0);
             const threeThirtyPM = new Date();
             threeThirtyPM.setHours(14, 0, 0, 0);
             return now >= noon && now <= threeThirtyPM;

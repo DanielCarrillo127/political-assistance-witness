@@ -70,7 +70,7 @@
     width: 100%;
     box-sizing: border-box;
     -webkit-box-pack: justify;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     background-color: white;
     line-height: 1.5;
     padding: 1rem;
@@ -160,6 +160,10 @@
     .home__grid {
         grid-template-columns: 100%;
     }
+    .stats__left {
+        border-right: 0px solid #f9f9f8;
+       
+    }
 }
 
 @media only screen and (max-width: 960px) {
@@ -185,10 +189,18 @@
     .home__grid {
         grid-template-columns: 100%;
     }
+    .stats__left {
+        border-right: 0px solid #f9f9f8;
+       
+    }
 }
 
 @media only screen and (max-width: 560px) {
     .cards {
         grid-template-columns: 100%;
+    }
+    .stats__left {
+        border-right: 0px solid #f9f9f8;
+       
     }
 }

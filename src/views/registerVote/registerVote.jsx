@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { votingBoothPaz, candidatesInfo } from '../../utils/constant';
+// eslint-disable-next-line
 import { toast } from "react-toastify";
 import { registerVotesApi } from '../../api/requestRegisterVote';
 import { Input, InputGroup, Whisper, Tooltip, SelectPicker, Button, List, FlexboxGrid } from 'rsuite';
@@ -36,6 +37,7 @@ const RegisterVote = () => {
     const [votes, setVotes] = useState(candidatesOptions ? candidatesOptions : []);
 
     const [file, setFile] = useState(null);
+    const [responseMessage, setResponseMessage] = useState("");
 
     //set handlers for inputs
     const handleChangeCedula = (e) => { setCedula(e) };
@@ -67,15 +69,16 @@ const RegisterVote = () => {
     const handleSubmit = async () => {
         setIsloading(true)
         if (cedula === "" || votingBooth === "" || table === "" || whiteVotes === "" || nullVotes === "" || file === null || unmarkedVotes === "") {
-            toast.warn(`Debes ingresar todos los campos marcados (*) para realizar el registro`, {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-            });
+            // toast.warn(`Debes ingresar todos los campos marcados (*) para realizar el registro`, {
+            //     position: "top-right",
+            //     autoClose: 3000,
+            //     hideProgressBar: false,
+            //     closeOnClick: true,
+            //     pauseOnHover: false,
+            //     draggable: true,
+            //     progress: undefined,
+            // });
+            setResponseMessage(`Debes ingresar todos los campos marcados (*) para realizar el registro`)
             setIsloading(false)
         } else {
             if (4 < cedula.length && cedula.length <= 10) {
@@ -104,36 +107,39 @@ const RegisterVote = () => {
                 }
                 const req = await registerVotesApi(newRegister);
                 if (req.status === 201) {
-                    toast.success(`Registrado creado correctamente`, {
-                        position: "top-right",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: false,
-                        draggable: true,
-                        progress: undefined,
-                    });
+                    // toast.success(`Registrado creado correctamente`, {
+                    //     position: "top-right",
+                    //     autoClose: 3000,
+                    //     hideProgressBar: false,
+                    //     closeOnClick: true,
+                    //     pauseOnHover: false,
+                    //     draggable: true,
+                    //     progress: undefined,
+                    // });
+                    setResponseMessage(`Registrado creado correctamente`)
                 } else {
                     if (req.status === 208) {
-                        toast.warn(`El testigo ingresado no existe`, {
-                            position: "top-right",
-                            autoClose: 3000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: false,
-                            draggable: true,
-                            progress: undefined,
-                        });
+                        // toast.warn(`El testigo ingresado no existe`, {
+                        //     position: "top-right",
+                        //     autoClose: 3000,
+                        //     hideProgressBar: false,
+                        //     closeOnClick: true,
+                        //     pauseOnHover: false,
+                        //     draggable: true,
+                        //     progress: undefined,
+                        // });
+                        setResponseMessage(`El testigo ingresado no existe`)
                     } else if (req.response.status === 400) {
-                        toast.warn(`La tabla o mesa de votación no coinciden con la del testigo`, {
-                            position: "top-right",
-                            autoClose: 3000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: false,
-                            draggable: true,
-                            progress: undefined,
-                        });
+                        // toast.warn(`La tabla o mesa de votación no coinciden con la del testigo`, {
+                        //     position: "top-right",
+                        //     autoClose: 3000,
+                        //     hideProgressBar: false,
+                        //     closeOnClick: true,
+                        //     pauseOnHover: false,
+                        //     draggable: true,
+                        //     progress: undefined,
+                        // });
+                        setResponseMessage(`La tabla o mesa de votación no coinciden con la del testigo`)
                     }
                 }
                 // //clear inputs
@@ -146,15 +152,16 @@ const RegisterVote = () => {
                 // setVotes(candidatesOptions ? candidatesOptions : [])
                 setIsloading(false)
             } else {
-                toast.warn(`Ingrese una Cedula Valida`, {
-                    position: "top-right",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: false,
-                    draggable: true,
-                    progress: undefined,
-                });
+                // toast.warn(`Ingrese una Cedula Valida`, {
+                //     position: "top-right",
+                //     autoClose: 3000,
+                //     hideProgressBar: false,
+                //     closeOnClick: true,
+                //     pauseOnHover: false,
+                //     draggable: true,
+                //     progress: undefined,
+                // });
+                setResponseMessage(`Ingrese una Cedula Valida`)
                 setIsloading(false)
             }
 
@@ -265,7 +272,7 @@ const RegisterVote = () => {
                             </div>
 
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <input type="file" name="file-input" id="file-input" className="inputfile inputfile-border" onChange={handleFileChange} />
+                                <input  accept=".png, .jpg, .jpeg" type="file" name="file-input" id="file-input" className="inputfile inputfile-border" onChange={handleFileChange} />
                                 <label for="file-input">
                                     <span class="iborrainputfile">Adjuntar evidencia</span>
                                 </label>
@@ -275,6 +282,7 @@ const RegisterVote = () => {
                         <Button appearance='primary' block loading={isloading} onClick={() => handleSubmit()} >
                             Registrar Votos
                         </Button>
+                        {responseMessage !== "" && <p>{responseMessage}</p>}
                     </div>
                 </div>
             </div>
