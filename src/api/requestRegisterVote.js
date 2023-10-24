@@ -66,3 +66,17 @@ export const updateVoteStatusApi = async (status) => {
     return error;
   }
 };
+
+
+export const getComplianceReportApi = async (userCedula) => {
+  try {
+    const req = await axios.post(
+      `${process.env.REACT_APP_API_URL}/getComplianceReport`,
+      { "userCedula": userCedula },
+      { headers: { 'authorization': `${localStorage.getItem('TOKEN')}` } }
+    );
+    return req;
+  } catch (error) {
+    return error;
+  }
+};

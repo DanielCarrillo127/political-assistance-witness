@@ -1,22 +1,24 @@
-import React, { useState, useEffect } from 'react' //useContext
+import React, { useState, useEffect, useContext } from 'react' //useContext
 import { toast } from "react-toastify";
-// import { DataContext } from '../../context/userContext';
-import { Whisper, Tooltip, } from 'rsuite';
+import { DataContext } from '../../context/userContext';
+import { Dropdown } from 'rsuite';
 import './witnessPage.css';
 import RecordCard from './recordCard/recordCard';
 import RecordModal from './recordModal/recordModal';
 import Cards from '../../components/cardsHighlights/cards';
-import { HiOutlineClipboardCheck, HiOutlineDocumentAdd, HiOutlineDocumentRemove, HiOutlineDocumentSearch, HiOutlineFlag, HiOutlineMinusCircle, HiOutlineXCircle, HiOutlinePhotograph } from "react-icons/hi";
-import { FaRegFileExcel } from "react-icons/fa";
-import { getVotesApi, updateVoteStatusApi } from '../../api/requestRegisterVote.js';
-
+import { HiOutlineClipboardCheck, HiOutlineDocumentAdd, HiOutlineDocumentRemove, HiOutlineDocumentSearch, HiOutlineFlag, HiOutlineMinusCircle, HiOutlineXCircle } from "react-icons/hi";
+import { getVotesApi, updateVoteStatusApi, getComplianceReportApi } from '../../api/requestRegisterVote.js';
 import { imageDb } from '../../api/firebaseConfig';
 import downloadImages from '../../utils/downloadImages';
 import { getDownloadURL, ref, listAll } from "firebase/storage";
+import PageIcon from '@rsuite/icons/Page';
+import DetailIcon from '@rsuite/icons/Detail';
+import FileDownloadIcon from '@rsuite/icons/FileDownload';
+import ExportToXlsx from '../../utils/exportToXlsx';
 
 const WitnessPage = () => {
 
-    // const { user } = useContext(DataContext);
+    const { user } = useContext(DataContext);
     //handlers to open the different modals
     const [openDetail, setOpenDetail] = useState(false);
     const handleCloseDetail = () => setOpenDetail(false);
@@ -44,7 +46,48 @@ const WitnessPage = () => {
         return () => clearInterval(intervalId);
     }, []);
 
-    const handleExportData = () => {
+    const handleExportGeneralReport = () => {
+    }
+    const handleExportComplienceReport = async () => {
+        const req = await getComplianceReportApi(user.cedula);
+        if (req.status === 200) {
+            const dataExport = req.data;
+            const columns = Object.entries(dataExport[0]).map((header) => {
+                return Object.assign({}, {key: header[0], label: header[0] }) 
+            })
+            ExportToXlsx('Reporte_Cumplimiento', dataExport, columns)
+        } else {
+            toast.warn(`Error al obtener el reporte`, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+    }
+    const handleExportMissingTablesReport = async () => {
+        // const req = await getComplianceReportApi(user.cedula);
+        // if (req.status === 200) {
+        //     const dataExport = req.data;
+        //     const columns = Object.entries(dataExport[0]).map((header) => {
+        //         return Object.assign({}, {key: header[0], label: header[0] }) 
+        //     })
+        //     console.log(columns)
+        //     ExportToXlsx('Reporte_Cumplimiento', dataExport, columns)
+        // } else {
+        //     toast.warn(`Error al obtener el reporte`, {
+        //         position: "top-right",
+        //         autoClose: 3000,
+        //         hideProgressBar: false,
+        //         closeOnClick: true,
+        //         pauseOnHover: false,
+        //         draggable: true,
+        //         progress: undefined,
+        //     });
+        // }
     }
 
     const handleExportEvidence = () => {
@@ -112,12 +155,12 @@ const WitnessPage = () => {
                     <div className="container__component">
                         <div className="container__header">
                             <h2>Bandeja de verificación de votos</h2>
-                            <Whisper speaker={<Tooltip> descargar registros xlsx</Tooltip>} trigger="hover" placement="top">
-                                <button style={{ opacity: '0.7' }} disabled className='button__actions right' onClick={handleExportData}><FaRegFileExcel className='exportIcon' size={20} /></button>
-                            </Whisper>
-                            {/* <Whisper speaker={<Tooltip>descargar evidencias</Tooltip>} trigger="hover" placement="top">
-                                <button style={{ opacity: '0.7' }} className='button__actions right' onClick={handleExportEvidence}><HiOutlinePhotograph className='exportIcon' size={20} /></button>
-                            </Whisper> */}
+
+                            <Dropdown icon={<PageIcon />} title="Reportes">
+                                <Dropdown.Item icon={<FileDownloadIcon />} onClick={handleExportGeneralReport}>Reporte general</Dropdown.Item>
+                                <Dropdown.Item icon={<DetailIcon />} onClick={handleExportComplienceReport}>Reporte de cumplimiento</Dropdown.Item>
+                                <Dropdown.Item icon={<DetailIcon />} onClick={handleExportMissingTablesReport}>Reporte de mesas faltantes</Dropdown.Item>
+                            </Dropdown>
                         </div>
                         <div>
                             <div className='record__container'>
