@@ -42,7 +42,6 @@ const ExportToXlsx = async (fileName, jsonData, defaultColumns) => { //with colu
                 vertical: "bottom"
             }
         };
-        ws[`${abc[indexC]}1`] = { wch: 40 }
         indexC++;
     });
     const wb = { Sheets: { 'data': ws }, SheetNames: ['data'] }; //edit sheet name parameter
