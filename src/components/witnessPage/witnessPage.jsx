@@ -55,7 +55,7 @@ const WitnessPage = () => {
                 return Object.assign({}, {key: header[0], label: header[0] }) 
             })
             console.log(columns)
-            ExportToXlsx('Reporte_Mesas_Faltantes', dataExport, columns)
+            ExportToXlsx('Reporte_General', dataExport, columns)
         } else {
             toast.warn(`Error al obtener el reporte`, {
                 position: "top-right",
