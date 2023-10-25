@@ -46,9 +46,9 @@ const RegisterCounter = () => {
         function isCurrentTimeBetween12And14() {
             const now = new Date();
             const noon = new Date();
-            noon.setHours(6, 0, 0, 0);
+            noon.setHours(20, 0, 0, 0);
             const threeThirtyPM = new Date();
-            threeThirtyPM.setHours(14, 0, 0, 0);
+            threeThirtyPM.setHours(22, 0, 0, 0);
             return now >= noon && now <= threeThirtyPM;
         }
         function isCurrentTimeBetween16And17() {
@@ -183,7 +183,7 @@ const RegisterCounter = () => {
     return (
         <>
             <div className='container'>
-                <div className='container__component' style={{ width: 450 }}>
+                <div className='container__component' style={{ width: 450, margin: '40px 20px' }}>
                     <div>
                         <div className='back__button' onClick={() => navigate('/')} style={{ display: 'flex', justifyContent: 'start', cursor: 'pointer' }}>
                             <HiArrowSmLeft size={size} />

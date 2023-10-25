@@ -132,7 +132,7 @@ const RegisterVote = () => {
                     })
 
                 } else {
-                    if (req.status === 208) {
+                    if (req?.status === 208) {
                         // toast.warn(`El testigo ingresado no existe`, {
                         //     position: "top-right",
                         //     autoClose: 3000,
@@ -147,7 +147,7 @@ const RegisterVote = () => {
                             type: "warning"
                         })
 
-                    } else if (req.response.status === 400) {
+                    } else if (req?.response?.status === 400) {
                         // toast.warn(`La tabla o mesa de votación no coinciden con la del testigo`, {
                         //     position: "top-right",
                         //     autoClose: 3000,
@@ -298,7 +298,7 @@ const RegisterVote = () => {
 
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <input  accept=".png, .jpg, .jpeg" type="file" name="file-input" id="file-input" className="inputfile inputfile-border" onChange={handleFileChange} />
-                                <label for="file-input">
+                                <label htmlFor="file-input">
                                     <span class="iborrainputfile">Adjuntar evidencia</span>
                                 </label>
                                 <img id="output" src="" className={file === null && 'hidden'} alt="Uploaded file" width="100"></img>
