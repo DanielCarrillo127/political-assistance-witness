@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { votingBoothPaz } from '../../utils/constant';
+// eslint-disable-next-line
 import { toast } from "react-toastify";
 import { registerCounterVotesApi } from '../../api/requestRegisterVote';
 import { Input, InputGroup, Whisper, Tooltip, SelectPicker, Button } from 'rsuite';
@@ -81,7 +82,6 @@ const RegisterCounter = () => {
             {
                 message: "",
                 type: ""
-
             })
         if (cedula === "" || votingBooth === "" || table === "") {
             // toast.warn(`Debes ingresar todos los campos marcados (*) para realizar el registro`, {
@@ -100,7 +100,6 @@ const RegisterCounter = () => {
             setIsloading(false)
         } else {
             if (6 < cedula.length && cedula.length <= 10) {
-
                 const newRegister = {
                     cedula: cedula,
                     votingBooth: votingBooth,
@@ -155,7 +154,6 @@ const RegisterCounter = () => {
                         })
 
                     }
-                    setIsloading(false)
                 }
                 setIsloading(false)
             } else {

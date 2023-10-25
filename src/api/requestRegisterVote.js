@@ -80,3 +80,29 @@ export const getComplianceReportApi = async (userCedula) => {
     return error;
   }
 };
+
+export const getMissingTablesReportApi = async (userCedula, votingBooth) => {
+  try {
+    const req = await axios.post(
+      `${process.env.REACT_APP_API_URL}/getMissingTablesReport`,
+      { "userCedula": userCedula, "votingBooth": votingBooth },
+      { headers: { 'authorization': `${localStorage.getItem('TOKEN')}` } }
+    );
+    return req;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getGeneralReportApi = async (userCedula) => {
+  try {
+    const req = await axios.post(
+      `${process.env.REACT_APP_API_URL}/getGeneralReport`,
+      { "userCedula": userCedula},
+      { headers: { 'authorization': `${localStorage.getItem('TOKEN')}` } }
+    );
+    return req;
+  } catch (error) {
+    return error;
+  }
+};

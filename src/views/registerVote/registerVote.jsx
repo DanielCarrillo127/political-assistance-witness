@@ -92,7 +92,6 @@ const RegisterVote = () => {
             setIsloading(false)
         } else {
             if (6 < cedula.length && cedula.length <= 10) {
-
                 let url
                 try {
                     const storageRef = ref(imageDb, `/${cedula}-${votingBooth}-${table}`);

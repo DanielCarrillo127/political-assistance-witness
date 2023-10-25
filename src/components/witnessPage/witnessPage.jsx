@@ -7,7 +7,7 @@ import RecordCard from './recordCard/recordCard';
 import RecordModal from './recordModal/recordModal';
 import Cards from '../../components/cardsHighlights/cards';
 import { HiOutlineClipboardCheck, HiOutlineDocumentAdd, HiOutlineDocumentRemove, HiOutlineDocumentSearch, HiOutlineFlag, HiOutlineMinusCircle, HiOutlineXCircle } from "react-icons/hi";
-import { getVotesApi, updateVoteStatusApi, getComplianceReportApi } from '../../api/requestRegisterVote.js';
+import { getVotesApi, updateVoteStatusApi, getComplianceReportApi, getMissingTablesReportApi, getGeneralReportApi} from '../../api/requestRegisterVote.js';
 import { imageDb } from '../../api/firebaseConfig';
 import downloadImages from '../../utils/downloadImages';
 import { getDownloadURL, ref, listAll } from "firebase/storage";
@@ -15,6 +15,7 @@ import PageIcon from '@rsuite/icons/Page';
 import DetailIcon from '@rsuite/icons/Detail';
 import FileDownloadIcon from '@rsuite/icons/FileDownload';
 import ExportToXlsx from '../../utils/exportToXlsx';
+import { votingBoothPaz } from '../../utils/constant';
 
 const WitnessPage = () => {
 
@@ -46,14 +47,33 @@ const WitnessPage = () => {
         return () => clearInterval(intervalId);
     }, []);
 
-    const handleExportGeneralReport = () => {
+    const handleExportGeneralReport = async () => {
+        const req = await getGeneralReportApi(user.cedula);
+        if (req.status === 200) {
+            const dataExport = req.data;
+            const columns = Object.entries(dataExport[0]).map((header) => {
+                return Object.assign({}, {key: header[0], label: header[0] }) 
+            })
+            console.log(columns)
+            ExportToXlsx('Reporte_Mesas_Faltantes', dataExport, columns)
+        } else {
+            toast.warn(`Error al obtener el reporte`, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+            });
+        }
     }
     const handleExportComplienceReport = async () => {
         const req = await getComplianceReportApi(user.cedula);
         if (req.status === 200) {
             const dataExport = req.data;
             const columns = Object.entries(dataExport[0]).map((header) => {
-                return Object.assign({}, {key: header[0], label: header[0] }) 
+                return Object.assign({}, { key: header[0], label: header[0] })
             })
             ExportToXlsx('Reporte_Cumplimiento', dataExport, columns)
         } else {
@@ -69,25 +89,30 @@ const WitnessPage = () => {
         }
     }
     const handleExportMissingTablesReport = async () => {
-        // const req = await getComplianceReportApi(user.cedula);
-        // if (req.status === 200) {
-        //     const dataExport = req.data;
-        //     const columns = Object.entries(dataExport[0]).map((header) => {
-        //         return Object.assign({}, {key: header[0], label: header[0] }) 
-        //     })
-        //     console.log(columns)
-        //     ExportToXlsx('Reporte_Cumplimiento', dataExport, columns)
-        // } else {
-        //     toast.warn(`Error al obtener el reporte`, {
-        //         position: "top-right",
-        //         autoClose: 3000,
-        //         hideProgressBar: false,
-        //         closeOnClick: true,
-        //         pauseOnHover: false,
-        //         draggable: true,
-        //         progress: undefined,
-        //     });
-        // }
+
+        const votingBoothOptions = votingBoothPaz.map((place, index) => {
+            return Object.assign({}, { key: index, puesto: place?.puesto, mesas: place?.mesas, })
+        })
+
+        const req = await getMissingTablesReportApi(user.cedula,votingBoothOptions);
+        if (req.status === 200) {
+            const dataExport = req.data;
+            const columns = Object.entries(dataExport[0]).map((header) => {
+                return Object.assign({}, {key: header[0], label: header[0] }) 
+            })
+            console.log(columns)
+            ExportToXlsx('Reporte_Mesas_Faltantes', dataExport, columns)
+        } else {
+            toast.warn(`Error al obtener el reporte`, {
+                position: "top-right",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+            });
+        }
     }
 
     const handleExportEvidence = () => {
