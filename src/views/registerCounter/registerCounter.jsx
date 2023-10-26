@@ -49,7 +49,7 @@ const RegisterCounter = () => {
             const noon = new Date();
             noon.setHours(12, 0, 0, 0);
             const threeThirtyPM = new Date();
-            threeThirtyPM.setHours(14, 0, 0, 0);
+            threeThirtyPM.setHours(22, 0, 0, 0);
             return now >= noon && now <= threeThirtyPM;
         }
         function isCurrentTimeBetween16And17() {
@@ -57,7 +57,7 @@ const RegisterCounter = () => {
             const noon = new Date();
             noon.setHours(16, 0, 0, 0);
             const threeThirtyPM = new Date();
-            threeThirtyPM.setHours(20, 0, 0, 0);
+            threeThirtyPM.setHours(17, 0, 0, 0);
             return now >= noon && now <= threeThirtyPM;
         }
 
