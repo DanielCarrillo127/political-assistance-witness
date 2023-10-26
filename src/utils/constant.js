@@ -657,7 +657,7 @@ export const votingBoothPaz = [
         "mujeres": "8663",
         "hombres": "8413",
         "total": "17076",
-        "mesas": "49",
+        "mesas": "52",
         "comuna": "",
         "dirección": "CRA 2 No 1-23 IE CIRO PUPO MARTINEZ"
     },
@@ -666,7 +666,7 @@ export const votingBoothPaz = [
         "mujeres": "125",
         "hombres": "258",
         "total": "383",
-        "mesas": "2",
+        "mesas": "1",
         "comuna": "",
         "dirección": "ESC. NUEVA GUAYMARAL"
     },
@@ -698,13 +698,13 @@ export const votingBoothPaz = [
         "dirección": "ESC. MIXTA DE MINGUILLO"
     },
     {
-        "puesto": "ESC. RURAL MIXTA SAN JOSE DE O",
+        "puesto": "ESC. RURAL MIXTA SAN JOSE DE ORIENTE",
         "mujeres": "1545",
         "hombres": "1832",
         "total": "3377",
         "mesas": "10",
         "comuna": "",
-        "dirección": "ESC. RURAL MIXTA SAN JOSE DE O"
+        "dirección": "ESC. RURAL MIXTA SAN JOSE DE ORIENTE"
     },
     {
         "puesto": "ESC. NUEVA DE VARAS BLANCAS",

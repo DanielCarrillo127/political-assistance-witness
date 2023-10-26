@@ -75,7 +75,7 @@ const RegisterVote = () => {
             message: "",
             type: ""
         })
-        if (cedula === "" || votingBooth === "" || table === "" || whiteVotes === "" || nullVotes === "" || file === null || unmarkedVotes === "") {
+        if (cedula === "" || votingBooth === "" || table === "" || whiteVotes === "" || nullVotes === "" || file === null || unmarkedVotes === "" || votes[0].votes === undefined || votes[1].votes === undefined || votes[2].votes === undefined || votes[3].votes === undefined || votes[4].votes === undefined || votes[0].votes === "" || votes[1].votes === "" || votes[2].votes === "" || votes[3].votes === "" || votes[4].votes === "") {
             // toast.warn(`Debes ingresar todos los campos marcados (*) para realizar el registro`, {
             //     position: "top-right",
             //     autoClose: 3000,
@@ -185,11 +185,10 @@ const RegisterVote = () => {
                     message: `Ingrese una Cedula Valida`,
                     type: "warning"
                 })
-                
-                setIsloading(false)
             }
 
         };
+        setIsloading(false)
     }
 
     return (
@@ -300,7 +299,7 @@ const RegisterVote = () => {
                                 <label htmlFor="file-input">
                                     <span class="iborrainputfile">Adjuntar evidencia</span>
                                 </label>
-                                <img id="output" src="" className={file === null && 'hidden'} alt="Uploaded file" width="100"></img>
+                                <img id="output" src="" className={file === null ? 'hidden' : ''} alt="Uploaded file" width="100"></img>
                             </div>
                         </div>
                         <Button appearance='primary' block loading={isloading} onClick={() => handleSubmit()} >
