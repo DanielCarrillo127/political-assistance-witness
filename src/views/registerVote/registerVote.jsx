@@ -3,7 +3,7 @@ import { votingBoothPaz, candidatesInfo } from '../../utils/constant';
 // eslint-disable-next-line
 import { toast } from "react-toastify";
 import { registerVotesApi } from '../../api/requestRegisterVote';
-import { Input, InputGroup, Whisper, Tooltip, SelectPicker, Button, List, FlexboxGrid } from 'rsuite';
+import { Input, InputGroup, Whisper, Tooltip, SelectPicker, Button, List, FlexboxGrid, Form } from 'rsuite';
 import InfoIcon from '@rsuite/icons/legacy/Info';
 import ImageIcon from '@rsuite/icons/legacy/Image';
 import { HiOutlineIdentification, HiOutlineInboxIn, HiOutlineFlag, HiOutlineMinusCircle, HiOutlineXCircle, HiArrowSmLeft } from "react-icons/hi";
@@ -13,6 +13,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 import './register.css'
 
+const MAX_VOTES = 360;
 
 const RegisterVote = () => {
 
@@ -69,13 +70,28 @@ const RegisterVote = () => {
         }
     }
 
+    function validateVotes(arr) {
+        for (let i = 0; i < arr.length; i++) {
+            const candidate = arr[i];
+
+            if (
+                candidate.votes === undefined ||  // Check if votes is undefined
+                candidate.votes === "" ||         // Check if votes is an empty string
+                candidate.votes > 360  // Check if votes is not greater than 360
+            ) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     const handleSubmit = async () => {
         setIsloading(true)
         setResponseMessage({
             message: "",
             type: ""
         })
-        if (cedula === "" || votingBooth === "" || table === "" || whiteVotes === "" || nullVotes === "" || file === null || unmarkedVotes === "" || votes[0].votes === undefined || votes[1].votes === undefined || votes[2].votes === undefined || votes[3].votes === undefined || votes[4].votes === undefined || votes[0].votes === "" || votes[1].votes === "" || votes[2].votes === "" || votes[3].votes === "" || votes[4].votes === "") {
+        if (cedula === "" || votingBooth === "" || table === "" || whiteVotes === "" || nullVotes === "" || file === null || unmarkedVotes === "" || !validateVotes(votes)) {
             // toast.warn(`Debes ingresar todos los campos marcados (*) para realizar el registro`, {
             //     position: "top-right",
             //     autoClose: 3000,
@@ -86,7 +102,7 @@ const RegisterVote = () => {
             //     progress: undefined,
             // });
             setResponseMessage({
-                message: "Debes ingresar todos los campos marcados (*) para realizar el registro",
+                message: "Debes ingresar todos los campos marcados (*) para realizar el registr o has ingresado datos incorrectos",
                 type: "warning"
             })
             setIsloading(false)
@@ -204,109 +220,114 @@ const RegisterVote = () => {
                             Registro de Votos
                         </h4>
                     </div>
-                    <div style={styles} >
-                        <div style={styles}>
-                            <InputGroup inside>
-                                <InputGroup.Addon>
-                                    <HiOutlineIdentification size={size} className="register__icon" />
-                                </InputGroup.Addon>
-                                <Input type='number' placeholder='Cedula del testigo* [CC]' value={cedula} onChange={handleChangeCedula} />
-                                <InputGroup.Addon>
-                                    <Whisper placement="right" speaker={<Tooltip> cedula sin espacios o separadores especiales ,-.</Tooltip>}>
-                                        <InfoIcon />
-                                    </Whisper>
-                                </InputGroup.Addon>
-                            </InputGroup>
-                        </div>
-                        <div style={styles}>
-                            <SelectPicker placement="autoVerticalEnd" style={{ marginBottom: 10 }} placeholder="Puesto de Votación*" data={votingBoothOptions} searchable={true} block value={votingBooth} onChange={handleChangeVotingBooth} />
-                        </div>
-                        <div style={styles}>
-                            <InputGroup inside>
-                                <InputGroup.Addon>
-                                    <HiOutlineInboxIn size={size} className="register__icon" />
-                                </InputGroup.Addon>
-                                <Input type='number' placeholder='Mesa de Votación*' value={table} onChange={handleChangeTable} />
-                            </InputGroup>
-                        </div>
-                        <div style={styles}>
-                            <List bordered hover>
-                                {votes.map((item, index) => (
-                                    <List.Item key={item['index']} index={index + 1}>
-                                        <FlexboxGrid style={{ justifyContent: "space-between" }}>
-                                            {/*icon*/}
-                                            <FlexboxGrid.Item colspan={2} style={styleCenter}>
-                                                <ImageIcon style={{ color: 'darkgrey', fontSize: '1.5em' }} />,
-                                            </FlexboxGrid.Item>
-                                            {/*base info*/}
-                                            <FlexboxGrid.Item
-                                                style={{
-                                                    ...styleCenter,
-                                                    flexDirection: 'column',
-                                                    alignItems: 'flex-start',
-                                                    // flexWrap: 'wrap',
-                                                }}
-                                            >
-                                                <div style={titleStyle}>{item['name']}</div>
-                                                <div style={slimText}>
-                                                    <div>{item['politicalParty']}</div>
-                                                </div>
-                                            </FlexboxGrid.Item>
-                                            <FlexboxGrid.Item colspan={6} style={{
-                                                display: 'flex',
-                                                justifyContent: 'end',
-                                                alignItems: 'center',
-                                                height: '60px'
-                                            }}>
-                                                <Input type='number' placeholder='Votos*' value={item['votes']} onChange={(e) => handleChangeVotes(e, index)} />
-                                            </FlexboxGrid.Item>
-                                        </FlexboxGrid>
-                                    </List.Item>
-                                ))}
-                            </List>
-                        </div>
-                        <div style={styles}>
-                            <InputGroup inside>
-                                <InputGroup.Addon>
-                                    <HiOutlineFlag size={size} className="register__icon" />
-                                </InputGroup.Addon>
-                                <Input type='number' placeholder='Votos en blanco*' value={whiteVotes} onChange={handleChangeWhiteVotes} />
-                            </InputGroup>
-                        </div>
-                        <div style={styles}>
-                            <InputGroup inside>
-                                <InputGroup.Addon>
-                                    <HiOutlineMinusCircle size={size} className="register__icon" />
-                                </InputGroup.Addon>
-                                <Input type='number' placeholder='Votos nulos*' value={nullVotes} onChange={handleChangeNullVotes} />
-                            </InputGroup>
-                        </div>
-                        <div style={styles}>
-                            <InputGroup inside>
-                                <InputGroup.Addon>
-                                    <HiOutlineXCircle size={size} className="register__icon" />
-                                </InputGroup.Addon>
-                                <Input type='number' placeholder='No marcados*' value={unmarkedVotes} onChange={handleChangeUnmarkedVotes} />
-                            </InputGroup>
-                        </div>
-                        <div style={styles}>
-                            <div style={{ textAlign: 'left', paddingBottom: '0.5em', paddingTop: '0.5em', color: 'rgba(34,36,38,.58)' }}>
-                                Agrega la evidencia fotográfica*
+                    <Form>
+                        <div style={styles} >
+                            <div style={styles}>
+                                <InputGroup inside>
+                                    <InputGroup.Addon>
+                                        <HiOutlineIdentification size={size} className="register__icon" />
+                                    </InputGroup.Addon>
+                                    <Input type='number' placeholder='Cedula del testigo* [CC]' value={cedula} onChange={handleChangeCedula} />
+                                    <InputGroup.Addon>
+                                        <Whisper placement="right" speaker={<Tooltip> cedula sin espacios o separadores especiales ,-.</Tooltip>}>
+                                            <InfoIcon />
+                                        </Whisper>
+                                    </InputGroup.Addon>
+                                </InputGroup>
                             </div>
+                            <div style={styles}>
+                                <SelectPicker placement="autoVerticalEnd" style={{ marginBottom: 10 }} placeholder="Puesto de Votación*" data={votingBoothOptions} searchable={true} block value={votingBooth} onChange={handleChangeVotingBooth} />
+                            </div>
+                            <div style={styles}>
+                                <InputGroup inside>
+                                    <InputGroup.Addon>
+                                        <HiOutlineInboxIn size={size} className="register__icon" />
+                                    </InputGroup.Addon>
+                                    <Input type='number' placeholder='Mesa de Votación*' value={table} onChange={handleChangeTable} />
+                                </InputGroup>
+                            </div>
+                            <div style={styles}>
+                                <List bordered hover>
+                                    {votes.map((item, index) => (
+                                        <List.Item key={item['index']} index={index + 1}>
+                                            <FlexboxGrid style={{ justifyContent: "space-between" }}>
+                                                {/*icon*/}
+                                                <FlexboxGrid.Item colspan={2} style={styleCenter}>
+                                                    <ImageIcon style={{ color: 'darkgrey', fontSize: '1.5em' }} />,
+                                                </FlexboxGrid.Item>
+                                                {/*base info*/}
+                                                <FlexboxGrid.Item
+                                                    style={{
+                                                        ...styleCenter,
+                                                        flexDirection: 'column',
+                                                        alignItems: 'flex-start',
+                                                        // flexWrap: 'wrap',
+                                                    }}
+                                                >
+                                                    <div style={titleStyle}>{item['name']}</div>
+                                                    <div style={slimText}>
+                                                        <div>{item['politicalParty']}</div>
+                                                    </div>
+                                                </FlexboxGrid.Item>
+                                                <FlexboxGrid.Item colspan={6} style={{
+                                                    display: 'flex',
+                                                    justifyContent: 'end',
+                                                    alignItems: 'center',
+                                                    height: '60px'
+                                                }}>
+                                                    <Input type='number' max={MAX_VOTES} placeholder='Votos*' value={item['votes']} onChange={(e) => handleChangeVotes(e, index)} />
+                                                    <Form.ErrorMessage show={item['votes'] > MAX_VOTES} placement={'bottomEnd'}>
+                                                        Ingrese un número entre 0 y 360
+                                                    </Form.ErrorMessage>
+                                                </FlexboxGrid.Item>
+                                            </FlexboxGrid>
+                                        </List.Item>
+                                    ))}
+                                </List>
+                            </div>
+                            <div style={styles}>
+                                <InputGroup inside>
+                                    <InputGroup.Addon>
+                                        <HiOutlineFlag size={size} className="register__icon" />
+                                    </InputGroup.Addon>
+                                    <Input type='number' placeholder='Votos en blanco*' value={whiteVotes} onChange={handleChangeWhiteVotes} />
+                                </InputGroup>
+                            </div>
+                            <div style={styles}>
+                                <InputGroup inside>
+                                    <InputGroup.Addon>
+                                        <HiOutlineMinusCircle size={size} className="register__icon" />
+                                    </InputGroup.Addon>
+                                    <Input type='number' placeholder='Votos nulos*' value={nullVotes} onChange={handleChangeNullVotes} />
+                                </InputGroup>
+                            </div>
+                            <div style={styles}>
+                                <InputGroup inside>
+                                    <InputGroup.Addon>
+                                        <HiOutlineXCircle size={size} className="register__icon" />
+                                    </InputGroup.Addon>
+                                    <Input type='number' placeholder='No marcados*' value={unmarkedVotes} onChange={handleChangeUnmarkedVotes} />
+                                </InputGroup>
+                            </div>
+                            <div style={styles}>
+                                <div style={{ textAlign: 'left', paddingBottom: '0.5em', paddingTop: '0.5em', color: 'rgba(34,36,38,.58)' }}>
+                                    Agrega la evidencia fotográfica*
+                                </div>
 
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <input  accept=".png, .jpg, .jpeg" type="file" name="file-input" id="file-input" className="inputfile inputfile-border" onChange={handleFileChange} />
-                                <label htmlFor="file-input">
-                                    <span class="iborrainputfile">Adjuntar evidencia</span>
-                                </label>
-                                <img id="output" src="" className={file === null ? 'hidden' : ''} alt="Uploaded file" width="100"></img>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <input accept=".png, .jpg, .jpeg" type="file" name="file-input" id="file-input" className="inputfile inputfile-border" onChange={handleFileChange} />
+                                    <label htmlFor="file-input">
+                                        <span className="iborrainputfile">Adjuntar evidencia</span>
+                                    </label>
+                                    <img id="output" src="" className={file === null ? 'hidden' : ''} alt="Uploaded file" width="100"></img>
+                                </div>
                             </div>
+                            <Button appearance='primary' block loading={isloading} onClick={() => handleSubmit()} >
+                                Registrar Votos
+                            </Button>
+                            {responseMessage?.message !== "" && <p style={responseMessage?.type === "success" ? { color: "green", marginTop: 10 } : { color: "red", marginTop: 10 }}>{responseMessage.message}</p>}
                         </div>
-                        <Button appearance='primary' block loading={isloading} onClick={() => handleSubmit()} >
-                            Registrar Votos
-                        </Button>
-                        {responseMessage?.message !== "" && <p style={responseMessage?.type === "success" ? { color: "green", marginTop: 10 } : { color: "red", marginTop: 10 }}>{responseMessage.message}</p>}
-                    </div>
+                    </Form>
                 </div>
             </div>
         </>

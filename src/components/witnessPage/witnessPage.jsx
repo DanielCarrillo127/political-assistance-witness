@@ -7,10 +7,10 @@ import RecordCard from './recordCard/recordCard';
 import RecordModal from './recordModal/recordModal';
 import Cards from '../../components/cardsHighlights/cards';
 import { HiOutlineClipboardCheck, HiOutlineDocumentAdd, HiOutlineDocumentRemove, HiOutlineDocumentSearch, HiOutlineFlag, HiOutlineMinusCircle, HiOutlineXCircle } from "react-icons/hi";
-import { getVotesApi, updateVoteStatusApi, getComplianceReportApi, getMissingTablesReportApi, getGeneralReportApi} from '../../api/requestRegisterVote.js';
+import { getVotesApi, updateVoteStatusApi, getComplianceReportApi, getMissingTablesReportApi, getGeneralReportApi } from '../../api/requestRegisterVote.js';
 import { imageDb } from '../../api/firebaseConfig';
-import downloadImages from '../../utils/downloadImages';
-import { getDownloadURL, ref, listAll } from "firebase/storage";
+import downloadAndZipImages from '../../utils/downloadImages';
+import { ref, listAll } from "firebase/storage";
 import PageIcon from '@rsuite/icons/Page';
 import DetailIcon from '@rsuite/icons/Detail';
 import FileDownloadIcon from '@rsuite/icons/FileDownload';
@@ -48,6 +48,7 @@ const WitnessPage = () => {
     }, []);
 
     const handleExportGeneralReport = async () => {
+        // handleExportEvidence();
         const req = await getGeneralReportApi(user.cedula);
         if (req.status === 200) {
             const dataExport = req.data;
@@ -67,6 +68,10 @@ const WitnessPage = () => {
                 progress: undefined,
             });
         }
+    }
+    const handleExportEvidence = async () => {
+        const items = await listAll(ref(imageDb, "/"))
+        downloadAndZipImages(items)
     }
     const handleExportComplienceReport = async () => {
         const req = await getComplianceReportApi(user.cedula);
@@ -94,13 +99,12 @@ const WitnessPage = () => {
             return Object.assign({}, { key: index, puesto: place?.puesto, mesas: place?.mesas, })
         })
 
-        const req = await getMissingTablesReportApi(user.cedula,votingBoothOptions);
+        const req = await getMissingTablesReportApi(user.cedula, votingBoothOptions);
         if (req.status === 200) {
             const dataExport = req.data;
             const columns = Object.entries(dataExport[0]).map((header) => {
-                return Object.assign({}, {key: header[0], label: header[0] }) 
+                return Object.assign({}, { key: header[0], label: header[0] })
             })
-            console.log(columns)
             ExportToXlsx('Reporte_Mesas_Faltantes', dataExport, columns)
         } else {
             toast.warn(`Error al obtener el reporte`, {
@@ -113,17 +117,6 @@ const WitnessPage = () => {
                 progress: undefined,
             });
         }
-    }
-
-    const handleExportEvidence = () => {
-        let ImgUrls = []
-        listAll(ref(imageDb, "/")).then(imgs => {
-            imgs.items.forEach(async val => {
-                let url = await getDownloadURL(val)
-                ImgUrls.push(url)
-            })
-        })
-        downloadImages(ImgUrls)
     }
 
     const handleSuccess = async (id) => {

@@ -53,7 +53,7 @@ const HomePage = () => {
         setStats(rest)
         // votesByCandidate
         const mergeData = votesByCandidate.map((candidate) => {
-          return Object.assign({}, candidate, { img: candidatesInfo[candidate?.index - 1]?.img, politicalParty: candidatesInfo[candidate?.index - 1]?.politicalParty, color: candidatesInfo[candidate?.index - 1]?.color });
+          return Object.assign({}, candidate, { img: candidatesInfo[candidate?.index]?.img, politicalParty: candidatesInfo[candidate?.index]?.politicalParty, color: candidatesInfo[candidate?.index]?.color });
         })
         setVotesByCandidate(mergeData)
 
@@ -126,7 +126,7 @@ const HomePage = () => {
               <div className='stats__left__value'>
                 <p style={{ fontWeight: 'bold', fontSize: '0.8rem', textTransform: 'uppercase' }}>Mesas informadas</p>
                 <div style={style}>
-                  <Progress.Circle percent={stats?.totalTables ? ((stats?.totalTables / TOTAL_TABLES) * 100).toFixed(2) : 0} strokeColor="#FFD500" />
+                  <Progress.Circle percent={stats?.totalTables ? (Number((stats?.totalTables / TOTAL_TABLES) * 100).toFixed(2)) : 0} strokeColor="#FFD500" />
                 </div>
                 <p className='stats__info' style={{ marginLeft: '-15px' }}>
                   {stats?.totalTables + " " || 0}
@@ -137,7 +137,7 @@ const HomePage = () => {
               <div className='stats__left__value'>
                 <p style={{ fontWeight: 'bold', fontSize: '0.8rem', textTransform: 'uppercase' }}>Votantes</p>
                 <div style={style}>
-                  <Progress.Circle percent={stats?.totalVotes ? ((stats?.totalVotes / TOTAL_VOTERS) * 100).toFixed(2) : 0} strokeColor="#00509d" />
+                  <Progress.Circle percent={stats?.totalVotes ? (Number((stats?.totalVotes / TOTAL_VOTERS) * 100).toFixed(2)) : 0} strokeColor="#00509d" />
                 </div>
                 <p className='stats__info'>
                   {stats?.totalVotes + " " || 0}
