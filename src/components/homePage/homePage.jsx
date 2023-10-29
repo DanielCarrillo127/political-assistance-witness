@@ -53,7 +53,7 @@ const HomePage = () => {
         setStats(rest)
         // votesByCandidate
         const mergeData = votesByCandidate.map((candidate) => {
-          return Object.assign({}, candidate, { img: candidatesInfo[candidate?.index]?.img, politicalParty: candidatesInfo[candidate?.index]?.politicalParty, color: candidatesInfo[candidate?.index]?.color });
+          return Object.assign({}, candidate, { img: candidatesInfo[candidate?.index-1]?.img, politicalParty: candidatesInfo[candidate?.index-1]?.politicalParty, color: candidatesInfo[candidate?.index-1]?.color });
         })
         setVotesByCandidate(mergeData)
 
