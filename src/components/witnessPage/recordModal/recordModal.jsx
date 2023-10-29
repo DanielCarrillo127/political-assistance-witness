@@ -67,8 +67,8 @@ const RecordModal = (props) => {
 
                         <hr className='line' />
                         {votesPerCandidate()}
-                        <p style={{ marginTop: 0 }} className='site'>Votos en blanco: {props.data?.votersData?.nullVotes}</p>
-                        <p style={{ marginTop: 0 }} className='site'>Votos anulados: {props.data?.votersData?.whiteVotes}</p>
+                        <p style={{ marginTop: 0 }} className='site'>Votos en blanco: {props.data?.votersData?.whiteVotes}</p>
+                        <p style={{ marginTop: 0 }} className='site'>Votos anulados: {props.data?.votersData?.nullVotes}</p>
                         <p style={{ marginTop: 0 }} className='site'>Votos no marcados: {props.data?.votersData?.unmarkedVotes}</p>
                         <div style={{ display: 'flex' }}>
                             <p className='inspector'>Votos totales en la mesa: {totalVotes()}</p>
