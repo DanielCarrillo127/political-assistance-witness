@@ -59,7 +59,7 @@ const RecordModal = (props) => {
                     <div className="info__container">
                         <span className='witnessName'>Testigo: {props.data?.witnessId.name + " " + props.data?.witnessId.surnames} ~ +57 {props.data?.witnessId.phoneNumber}</span>
                         <p style={{ marginTop: 0 }} className='inspector'>Lugar de votación: {props.data?.witnessId.votingBoothInCharge}</p>
-                        <p style={{ marginTop: 0 }} className='inspector'>Mesa de votación: #{props.data?.witnessId.tableInCharge}</p>
+                        <p style={{ marginTop: 0 }} className='inspector'>Mesa de votación: #{props.data?.table}</p>
                         <p className='inspector'>Hora de creación: {new Date(props.data?.updated_at).toLocaleString(undefined, options)}</p>
                         <div style={{ display: 'flex' }}>
                             <p className='inspector'>Estado:</p><p style={{textDecorationLine: 'underline',marginTop: 0, fontWeight: 'bold', color: props.data?.status === 'PENDIENTE' ? 'var(--rs-btn-primary-bg)' : 'red' }}>{props.data?.status}</p>
